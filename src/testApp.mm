@@ -1,5 +1,11 @@
 #include "testApp.h"
-#define _USE_LIVE_VIDEO
+//#define _USE_LIVE_VIDEO
+
+#import "MyViewController.h"
+#import "AlertViewDelegate.h"
+
+MyViewController * viewController = nil;
+AlertViewDelegate * alertViewDelegate = nil;
 
 //--------------------------------------------------------------
 void testApp::setup(){	
@@ -8,287 +14,396 @@ void testApp::setup(){
 	
 	//If you want a landscape oreintation 
 	iPhoneSetOrientation(OFXIPHONE_ORIENTATION_LANDSCAPE_RIGHT);
-	
+    
+    ofTrueTypeFont::setGlobalDpi(72);
+    
+	TinyUnicode.loadFont("Commodore_Pixelized.ttf", 10, false);
+    
+    TinyUnicode20.loadFont("Commodore_Pixelized.ttf", 20, false);
+    
     ofBackground(200,200,200);
     
-    ball.setup();
+    ofSetLogLevel(OF_LOG_VERBOSE);
+
     
     touchRadiusX = 40;
     touchRadiusY = 40;
     
-    w = ofGetWidth();
-    h = ofGetHeight();
     
-    counter = 0;
-    lives = 3;
-    speed = 2;
+    victory = false;
+    inc=1;
+    blink=ofGetElapsedTimef();
+    
+    maxScore = 1000;
     
     pong.loadSound("pong.wav");
-    
-    grabber.initGrabber(480, 360, OF_PIXELS_BGRA);
-    tex.allocate(grabber.getWidth(), grabber.getHeight(), GL_RGB);
-    pix = new unsigned char[ (int)( grabber.getWidth() * grabber.getHeight() * 3.0) ];
+   
    
     //resize.m4v is 480x320 pixels
-    //video.loadMovie("resize.m4v");
-	//video.play();
-    
+    video.loadMovie("resize.m4v");
+	video.play();
     //looping the video
-    //video.setLoopState(OF_LOOP_NORMAL);
-
+    video.setLoopState(OF_LOOP_NORMAL);
+   
+    ball.setup();
+    
+    if( settings.loadFile(ofxiPhoneGetDocumentsDirectory() + "settings.xml") ){
+		
+	}else if(settings.loadFile("settings.xml") ){
+		
+	}
+    
+    ball.counter= settings.getValue("settings:score",0);
+    ball.xpos = settings.getValue("settings:xpos",ofGetWidth()/2);
+    ball.ypos = settings.getValue("settings:ypos", ofGetHeight()/2);
+    ball.xspeed = settings.getValue("settings:speedx", 2);
+    ball.yspeed = settings.getValue("settings:speedy", 2);
+    subMenu = settings.getValue("settings:firstLaunch",5);
+    
+    //menu buttons
+    
+    buttonMenuRect.width = 50;
+    buttonMenuRect.height = 30;
+    buttonMenuRect.x = 20;
+    buttonMenuRect.y = ofGetHeight()-70;
+    
+    buttonInfoRect.width = 55;
+    buttonInfoRect.height = 30;
+    buttonInfoRect.x = ofGetWidth()/2-30;
+    buttonInfoRect.y = ofGetHeight()/5;
+    
+    buttonExternalDisplayRect.width = 150;
+    buttonExternalDisplayRect.height = 30;
+    buttonExternalDisplayRect.x = ofGetWidth()/2-75;
+    buttonExternalDisplayRect.y = ofGetHeight()/5*2;
+    
+    buttonCreditsRect.width = 75;
+    buttonCreditsRect.height = 30;
+    buttonCreditsRect.x = ofGetWidth()/2-40;
+    buttonCreditsRect.y = ofGetHeight()/5*3;
+    
+    buttonStartRect.width = 110;
+    buttonStartRect.height = 30;
+    buttonStartRect.x = ofGetWidth()/2-50;
+    buttonStartRect.y = ofGetHeight()-80;
+    
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
-//    if(!video.isLoaded()) {
-//        return;
-//    }
     
-    //video.update();
-    grabber.update();
-
-    //  int wg = grabber.width;
-    //	int hg = grabber.height;
-    
-    //loose
-    
-    if (ball.xpos+(ball.mysize/2) > w || ball.xpos-(ball.mysize/2) < 0) {
-        ball.xpos = ofGetWidth()/2;
-        
-        counter = 0;
-        
-        lives = lives -1;
+    if(!video.isLoaded()) {
+        return;
     }
-    if (ball.ypos+(ball.mysize/2) > h || ball.ypos-(ball.mysize/2) < 0) {
-        ball.ypos = ofGetHeight()/2;
-        
-        counter = 0;
-        
-        lives = lives -1;
-        
+    video.update();    
+   
+    //borders    
+    if (ball.xpos > ofGetWidth()-20) {
+        ball.xpos = 20;
+    }
+    else if (ball.xpos < 20){
+        ball.xpos = ofGetWidth()-20;
     }
     
     //bars at bottom and top
-    if (ball.xpos > 20 && ball.xpos < ofGetWidth()-40 && ball.ypos > 20 && ball.ypos < 30)
-    { ball.yspeed = ball.yspeed * (-1); }
-    
-    if (ball.xpos > 20 && ball.xpos < ofGetWidth()-40 && ball.ypos > ofGetHeight()-40 && ball.ypos < ofGetHeight()-30)
-    { ball.yspeed = ball.yspeed * (-1); }
-    
-    
-    
-    ball.xpos = ball.xpos + ball.xspeed;
-    ball.ypos = ball.ypos + ball.yspeed;
-    
-    ball.update();
-    
-    for (int x = ball.xpos-(ball.mysize*1.5); x<ball.xpos+(ball.mysize*1.5); x+=ball.mysize){
-        
-        for (int y = ball.ypos-(ball.mysize*1.5); y<ball.ypos+(ball.mysize*1.5); y+=ball.mysize){
-            
-        
-        }
-            
+    if (ball.ypos < 30){ 
+        ball.ypos = 30;
+        ball.yspeed = ball.yspeed * (-1);
+        pong.play();        
     }
     
-    tex.loadData(pix, grabber.getWidth(), grabber.getHeight(), GL_RGB);
+    if (ball.ypos > ofGetHeight()-40){
+        ball.ypos = ofGetHeight()-40;
+        ball.yspeed = ball.yspeed * (-1);        
+        pong.play();
+    }
+    
+    
+    if(subMenu==5){
+        
+        ball.pixels = video.getPixels();        
+        ball.videoW = video.getWidth();
+        ball.videoH = video.getHeight();
+        
+        ball.update();
+        
+        
+        if (!victory){
+            ball.xpos = ball.xpos + ball.xspeed;
+            ball.ypos = ball.ypos + ball.yspeed;   
+        }
+        
+    }        
 
 }
+
+
+
+
 
 //--------------------------------------------------------------
 void testApp::draw(){
     
     ofSetColor(255);
-    //video.getTexture()->draw(0, 0);
-    grabber.draw(0, 0);
-    //tex.draw(0, 0, tex.getWidth() / 4, tex.getHeight() / 4);
-    
-	//if(video.isLoaded()){
-        
-       unsigned char * pixels = grabber.getPixels();
-        
-        int videoW = grabber.getWidth();
-        int videoH = grabber.getHeight();
-        
-		ofSetColor(54);
-		for (int i = 5; i < videoW; i+=10){
-			for (int j = 5; j < videoH; j+=10){
-                
-                //this is as formula to translate colours into grayscale                
-                //unsigned char r = pixels[((11*(j * 480 + i)*3)+16*((j * 480 + i)*3+1)+5*((j * 480 + i)*3+2))/32];
-                
-                // using the blue channel to manage pixels
-//                unsigned char r = pixels[(j * videoW + i)*3+2];                
-//				float val = 1 - ((float)r / 255.0f);
-//                if (val > 0.5){
-//                    
-//                    // circles for debugging
-//                    ofCircle(i, j, 4 * val);
-                    
-                    if (ball.xpos >= i - (1.5*ball.mysize) && ball.xpos <= i + (1.5*ball.mysize) && ball.ypos >= j - (1.5*ball.mysize) && ball.ypos <= j + (1.5*ball.mysize)){
-                        
-                        
-                        
-                        int cubes[9];
-                        int inc = 0;
-                        
-                        //checking surrounding pxls ball.mysize
-                        for (int q=-1; q<2; q++){
-                            for (int p=-1; p<2; p++){
-                                
-                                unsigned char f = pixels[((j+p) * videoW + (i+q))*3+2];                
-                                float val2 = 1 - ((float)f / 255.0f);
-                                if (val2 > 0.5){                                
-                                    cubes[inc]=1;
-                                }
-                                else {
-                                    cubes[inc]=0;
-                                }
-                                inc++;
-                            }
-                        }
-                        
-                        //move right
-                        if ((cubes[0]==1 && cubes[1]==1 && cubes[2] == 1) && (cubes[6]==0 && cubes[7]==0 && cubes[8] == 0)) {
-                        
-                                ball.xspeed = speed;
-                                ball.yspeed = 0;
-                                
-                        }
-                        
-                        //move left                        
-                        else if ((cubes[6]==1 && cubes[7]==1 && cubes[8] == 1) && (cubes[0]==0 && cubes[1]==0 && cubes[2] == 0)) {
-                                
-                                ball.xspeed = -speed;
-                                ball.yspeed = 0;
-                                
-                        }
-                        
-                        //move up
-                        else if ((cubes[2]==1 && cubes[5]==1 && cubes[8] == 1) && (cubes[0]==0 && cubes[3]==0 && cubes[6] == 0)) {                            
-                                
-                                ball.xspeed = 0;
-                                ball.yspeed = -speed;
-                                
-                        }
-                        
-                        //move down
-                        else if ((cubes[0]==1 && cubes[3]==1 && cubes[6] == 1) && (cubes[2]==0 && cubes[5]==0 && cubes[8] == 0)){                        
-                                
-                                ball.xspeed = 0;
-                                ball.yspeed = speed;
-                                
-                        }
-                        
-                        //move right+down
-                        else if ((cubes[0]==1 && cubes[2]==0 && cubes[6]==0 && cubes[8]==0) || (cubes[0]==1 && cubes[2]==1 && cubes[6]==1 && cubes[8]==0)) {                            
-                                
-                                ball.xspeed = speed;
-                                ball.yspeed = speed;
-                                
-                        }
-                        
-                        //move left+down
-                        else if ((cubes[6]==1 && cubes[0]==0 && cubes[8]==0 && cubes[2]==0) || (cubes[6]==1 && cubes[0]==1 && cubes[8]==1 && cubes[2]==0)) {                            
-                            
-                            ball.xspeed = -speed;
-                            ball.yspeed = speed;
-                            
-                        }
-                        
-                        //move right+up
-                        else if ((cubes[2]==1 && cubes[0]==0 && cubes[8]==0 && cubes[6]==0) || (cubes[2]==1 && cubes[0]==1 && cubes[8]==1 && cubes[6]==0)) {                            
-                            
-                            ball.xspeed = speed;
-                            ball.yspeed = -speed;
-                            
-                        }
-                        
-                        //move left+up
-                        else if ((cubes[8]==1 && cubes[2]==0 && cubes[6]==0 && cubes[0]==0) || (cubes[8]==1 && cubes[2]==1 && cubes[6]==1 && cubes[0]==0)) {                            
-                            
-                            ball.xspeed = -speed;
-                            ball.yspeed = -speed;
-                            
-                        }
-                        
-                        
-                        counter = counter + 1;
-                    }
-                   
-                    
-                }
-                
-               
-                
-			//}
-		}
-    //}
-    
-    ball.draw();
-    
-    ofSetColor(255, 0, 0);
-    ofNoFill();
-    ofRect(mouseX-touchRadiusX/2, mouseY-touchRadiusY/2, touchRadiusX, touchRadiusY);
-    
+    video.getTexture()->draw(0, 0);
+
     ofFill();
-    ofSetColor(255, 255, 255);
+    ofEnableAlphaBlending();
+    ofSetColor(255, 255, 255, 180);
     ofRect(20, 20, ofGetWidth()-40, 10);
     ofRect(20, ofGetHeight()-30, ofGetWidth()-40, 10);
     
+//    if (ball.counter >= maxScore){
+//        victory=true;
+//        TinyUnicode.drawString("Victory!", ofGetWidth()/2-30, ofGetHeight()/2-10);
+//        TinyUnicode.drawString("double tap to restart", ofGetWidth()/2-80, ofGetHeight()/2+10);
+//    }
+//    else{
+//        victory=false;
+//    }
     
-    ofDrawBitmapString("score " + ofToString(counter), 30, 60);
-    ofDrawBitmapString("lives " + ofToString(lives), 30, 80);
+   
     
-    if (lives == 0 || lives < 0){
-        ofDrawBitmapString("game over", ofGetWidth()/2-50, ofGetHeight()/2-10);
-        counter = 0;
-        lives = 0;
+    
+    //menu
+
+    switch ( subMenu ) {
+            
+        case 0 :
+            
+            ofSetColor(255, 255, 255, 180);
+            ofRect(20,30,440,260);
+            ofSetColor(150, 0, 0, 200);
+            TinyUnicode.drawString("back", 30, ofGetHeight()-50);
+            
+            TinyUnicode.drawString("info", ofGetWidth()/2-20,ofGetHeight()/5+20);
+            TinyUnicode.drawString("external display", ofGetWidth()/2-65, ofGetHeight()/5*2+20);
+            TinyUnicode.drawString("credits", ofGetWidth()/2-30, ofGetHeight()/5*3+20);
+            
+            ofNoFill();
+            
+            //ofRect(ofGetWidth()/2-30,ofGetHeight()/5,55,30);
+            //ofRect(ofGetWidth()/2-75, ofGetHeight()/5*2,150,30);
+            //ofRect(ofGetWidth()/2-40, ofGetHeight()/5*3,75,30); 
+            
+            break;
+            
+        case 1 : 
+            ofSetColor(255, 255, 255, 180);
+            ofRect(20,30,440,260);
+            ofSetColor(150, 0, 0, 200);
+            TinyUnicode.drawString("back", 30, ofGetHeight()-50);
+            TinyUnicode.drawString("info", ofGetWidth()/2-20,ofGetHeight()/5);
+            TinyUnicode.drawString("PING! Augmented Pixel is a seventies style \nvideogame, that adds a layer of digital information \nand oldschool aesthetics to a video signal: A classic \nrectangular video game ball moves across a video \nimage. Whenever the ball hits something dark, \nit bounces off. The game itself has no rules and \nno goal. Like GTA, it provides a free environment \nin which anything is possible. And like Sony’s \nEyetoy, it uses a video camera as game controller.", 30, ofGetHeight()/5+40);
+            break;
+            
+        case 2 : 
+            ofSetColor(255, 255, 255, 180);
+            ofRect(20,30,440,260);
+            ofSetColor(150, 0, 0, 200);
+            TinyUnicode.drawString("back", 30, ofGetHeight()-50);
+            TinyUnicode.drawString("fullscreen", ofGetWidth()/2-40, ofGetHeight()/5);
+            break;
+            
+        case 3 : 
+            ofSetColor(255, 255, 255, 180);
+            ofRect(20,30,440,260);
+            ofSetColor(150, 0, 0, 200);
+            TinyUnicode.drawString("back", 30, ofGetHeight()-50);
+            TinyUnicode.drawString("credits", ofGetWidth()/2-30, ofGetHeight()/5);
+            break;
+            
+        case 4 :            
+            
+            ofSetColor(255, 255, 255, 180);
+            ofRect(20,30,440,260);
+            ofSetColor(150, 0, 0, 200);
+
+            TinyUnicode20.drawString("Hello!", ofGetWidth()/2-45,ofGetHeight()/5);
+            TinyUnicode.drawString("PING! Augmented Pixel is a seventies style videogame, \nthat adds a layer of digital information and \noldschool aesthetics to a video signal: A classic \nrectangular video game ball moves across a video \nimage. Whenever the ball hits something dark, \nit bounces off. The game itself has no rules and \nno goal. Like GTA, it provides a free environment \nin which anything is possible. And like Sony’s Eyetoy, \nit uses a video camera as game controller.", 30, ofGetHeight()/5+40);
+            
+            
+            if (ofGetElapsedTimef() - blink < 0.5f) {
+                if (inc<0){
+                    TinyUnicode.drawString("tap to start", ofGetWidth()/2-45, ofGetHeight()-60);
+                }
+
+            }
+            else{
+            inc=-inc;
+            blink=ofGetElapsedTimef();
+            
+            }
+            
+            ofNoFill();
+            //ofRect(ofGetWidth()/2-50, ofGetHeight()-80, 110, 30);
+            
+            break;
+            
+        default :
+            
+            TinyUnicode.drawString("menu", 30, ofGetHeight()-50);
+            TinyUnicode.drawString("score " + ofToString(ball.counter), 30, 60);
+            ball.draw();
+            
+            
+            ofNoFill();
+            //ofRect(20,ofGetHeight()-70,50,30);
+            
+
+            break;
+            
     }
     
-	
+    
 }
 
 //--------------------------------------------------------------
 void testApp::exit(){
-pong.stop();
+    
+    settings.setValue("settings:score", ball.counter);
+    settings.setValue("settings:xpos", ball.xpos);
+    settings.setValue("settings:ypos", ball.ypos);
+    settings.setValue("settings:speedx", ball.xspeed);
+    settings.setValue("settings:speedy", ball.yspeed);
+    settings.setValue("settings:firstLaunch", 5);
+    settings.saveFile("settings.xml");
+    pong.stop();
+    
+}
+
+void testApp::presentExternalDisplayPopup(){
+    
+    alertViewDelegate = [[[AlertViewDelegate alloc] init] retain];
+    
+    UIAlertView * alert = [[[UIAlertView alloc] initWithTitle:@"External Display" 
+                                                      message:@"Select a External Display Mode" 
+                                                     delegate:alertViewDelegate 
+                                            cancelButtonTitle:@"Cancel" 
+                                            otherButtonTitles:nil] retain];
+    
+    vector<ofxiPhoneExternalDisplayMode> displayModes;
+    displayModes = ofxiPhoneExternalDisplay::getExternalDisplayModes();
+    
+    [alert addButtonWithTitle:@"Preferred Mode"];
+    
+    for(int i = 0; i < displayModes.size(); i++){
+        string buttonText = ofToString(displayModes[i].width) + " x " + ofToString(displayModes[i].height);
+        [alert addButtonWithTitle:ofxStringToNSString(buttonText)];
+    }
+    
+    [alert show];
+    [alert release];
+}
+
+//--------------------------------------------------------------
+void testApp::presentExternalDisplayNotFoundPopup(){
+    UIAlertView * alert = [[[UIAlertView alloc] initWithTitle:@"External Display" 
+                                                      message:@"External Display not found.\nConnect to an external display using a VGA adapter or AirPlay."
+                                                     delegate:nil 
+                                            cancelButtonTitle:@"OK" 
+                                            otherButtonTitles:nil] retain];
+    [alert show];
+    [alert release];
+}
+
+void testApp::presentMirroringFailedPopup(){
+    UIAlertView * alert = [[[UIAlertView alloc] initWithTitle:@"Mirroring Failed" 
+                                                      message:@"Either you are not connected to an external display or your device does not support mirroring."
+                                                     delegate:nil 
+                                            cancelButtonTitle:@"OK" 
+                                            otherButtonTitles:nil] retain];
+    [alert show];
+    [alert release];
+}
+
+//--------------------------------------------------------------
+void testApp::popupDismissed(){
+    if(alertViewDelegate){
+        [alertViewDelegate release];
+        alertViewDelegate = nil;
+    }
 }
 
 //--------------------------------------------------------------
 void testApp::touchDown(ofTouchEventArgs & touch){
 
+    if(subMenu==0){
+        if(buttonInfoRect.inside(touch.x, touch.y)){
+            subMenu = 1; //info
+        }
+        
+        if(buttonExternalDisplayRect.inside(touch.x, touch.y)){
+            if(ofxiPhoneExternalDisplay::isExternalScreenConnected()){
+                presentExternalDisplayPopup();
+            } else {
+                presentExternalDisplayNotFoundPopup();
+            }
+        }
+        
+        if(buttonCreditsRect.inside(touch.x, touch.y)){
+            subMenu = 3; //credits
+        }
+        
+    }
+    
+    if(buttonMenuRect.inside(touch.x, touch.y)){
+        
+        if (subMenu==0) {
+            subMenu=5;
+        } else {
+            subMenu=0;    
+        }
+        
+    }
+    
+    if(buttonStartRect.inside(touch.x, touch.y)){
+        if (subMenu==4){
+            subMenu=5;
+        }
+    }
+    
+    
+    
 }
 
 //--------------------------------------------------------------
 void testApp::touchMoved(ofTouchEventArgs & touch){
 
-    if (ball.xpos > touch.x - touchRadiusX/2 && ball.xpos < touch.x + touchRadiusX/2 &&
-        ball.ypos > touch.y - touchRadiusY/2 && ball.ypos < touch.x + touchRadiusY/2){
-        
-        ball.xspeed = ball.xspeed * (-1);
-        ball.yspeed = ball.yspeed * (1);
-        
-        counter = counter + 1;
-        
-        pong.play();
-    }
     
 }
 
 //--------------------------------------------------------------
 void testApp::touchUp(ofTouchEventArgs & touch){
 
+    
+    
+    
 }
 
 //--------------------------------------------------------------
 void testApp::touchDoubleTap(ofTouchEventArgs & touch){
-
     
-    ball.xpos = ofRandom(0,400);
-    ball.ypos = ofRandom(0,400);
-    
-    lives = 3;    
-    
+    if(subMenu==5){
+        ball.xpos = ofGetWidth()/2;
+        ball.ypos = ofGetHeight()/2;
+        
+        float s = ofRandom(-1,1);
+        if (s>=0){
+            ball.xspeed = 2;
+        } else {
+            ball.xspeed = -2;      
+        }
+        
+        float a = ofRandom(-1,1);
+        if (a>=0){
+            ball.yspeed = 2;
+        } else {
+            ball.yspeed = -2;      
+        }
+        
+        ball.counter = 0;
+    }
 }
 
 //--------------------------------------------------------------
@@ -315,4 +430,34 @@ void testApp::gotMemoryWarning(){
 void testApp::deviceOrientationChanged(int newOrientation){
 
 }
+
+//--------------------------------------------------------------
+void testApp::externalDisplayConnected(){
+    ofLogVerbose("external display connected.");
+    presentExternalDisplayPopup();
+}
+
+//--------------------------------------------------------------
+void testApp::externalDisplayDisconnected(){
+    ofLogVerbose("external display disconnected.");
+}
+
+//--------------------------------------------------------------
+void testApp::externalDisplayChanged(){
+    ofLogVerbose("external display changed.");
+    if(ofxiPhoneExternalDisplay::isDisplayingOnDeviceScreen()){
+        if(viewController){
+            [viewController.view removeFromSuperview];
+            [viewController release];
+            viewController = nil;
+        }
+    } else if(ofxiPhoneExternalDisplay::isDisplayingOnExternalScreen()) {
+        if(!viewController){
+            viewController = [[[MyViewController alloc] init] retain];
+            [ofxiPhoneGetAppDelegate().window addSubview:viewController.view];  // add to device window.
+        }
+    }
+}
+
+
 

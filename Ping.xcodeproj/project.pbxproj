@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		0B43977B1640AD690047FA67 /* ball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B4397791640AD690047FA67 /* ball.cpp */; };
+		0B5CB4251647E35D00A86BFE /* MyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B5CB4201647E35D00A86BFE /* MyViewController.xib */; };
+		0B5CB4261647E35D00A86BFE /* MyViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B5CB4211647E35D00A86BFE /* MyViewController~ipad.xib */; };
+		0B5CB4271647E35D00A86BFE /* AlertViewDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0B5CB4221647E35D00A86BFE /* AlertViewDelegate.mm */; };
+		0B5CB4281647E35D00A86BFE /* MyViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0B5CB4231647E35D00A86BFE /* MyViewController.mm */; };
+		0B5CB44616481CAF00A86BFE /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B5CB43F16481CAF00A86BFE /* tinyxml.cpp */; };
+		0B5CB44716481CAF00A86BFE /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B5CB44116481CAF00A86BFE /* tinyxmlerror.cpp */; };
+		0B5CB44816481CAF00A86BFE /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B5CB44216481CAF00A86BFE /* tinyxmlparser.cpp */; };
+		0B5CB44916481CAF00A86BFE /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B5CB44416481CAF00A86BFE /* ofxXmlSettings.cpp */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
@@ -49,6 +57,18 @@
 /* Begin PBXFileReference section */
 		0B4397791640AD690047FA67 /* ball.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ball.cpp; path = ../../pingnew_01/src/ball.cpp; sourceTree = "<group>"; };
 		0B43977A1640AD690047FA67 /* ball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ball.h; path = ../../pingnew_01/src/ball.h; sourceTree = "<group>"; };
+		0B5CB41F1647E35D00A86BFE /* AlertViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlertViewDelegate.h; path = ../../external/src/UI/AlertViewDelegate.h; sourceTree = "<group>"; };
+		0B5CB4201647E35D00A86BFE /* MyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MyViewController.xib; path = ../../external/src/UI/MyViewController.xib; sourceTree = "<group>"; };
+		0B5CB4211647E35D00A86BFE /* MyViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "MyViewController~ipad.xib"; path = "../../external/src/UI/MyViewController~ipad.xib"; sourceTree = "<group>"; };
+		0B5CB4221647E35D00A86BFE /* AlertViewDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AlertViewDelegate.mm; path = ../../external/src/UI/AlertViewDelegate.mm; sourceTree = "<group>"; };
+		0B5CB4231647E35D00A86BFE /* MyViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MyViewController.mm; path = ../../external/src/UI/MyViewController.mm; sourceTree = "<group>"; };
+		0B5CB4241647E35D00A86BFE /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyViewController.h; path = ../../external/src/UI/MyViewController.h; sourceTree = "<group>"; };
+		0B5CB43F16481CAF00A86BFE /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml.cpp; sourceTree = "<group>"; };
+		0B5CB44016481CAF00A86BFE /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml.h; sourceTree = "<group>"; };
+		0B5CB44116481CAF00A86BFE /* tinyxmlerror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlerror.cpp; sourceTree = "<group>"; };
+		0B5CB44216481CAF00A86BFE /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlparser.cpp; sourceTree = "<group>"; };
+		0B5CB44416481CAF00A86BFE /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxXmlSettings.cpp; sourceTree = "<group>"; };
+		0B5CB44516481CAF00A86BFE /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Ping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -98,6 +118,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B5CB41E1647E34C00A86BFE /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				0B5CB41F1647E35D00A86BFE /* AlertViewDelegate.h */,
+				0B5CB4201647E35D00A86BFE /* MyViewController.xib */,
+				0B5CB4211647E35D00A86BFE /* MyViewController~ipad.xib */,
+				0B5CB4221647E35D00A86BFE /* AlertViewDelegate.mm */,
+				0B5CB4231647E35D00A86BFE /* MyViewController.mm */,
+				0B5CB4241647E35D00A86BFE /* MyViewController.h */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		0B5CB43D16481CAF00A86BFE /* ofxXmlSettings */ = {
+			isa = PBXGroup;
+			children = (
+				0B5CB44316481CAF00A86BFE /* src */,
+				0B5CB43E16481CAF00A86BFE /* libs */,
+			);
+			name = ofxXmlSettings;
+			path = ../../../addons/ofxXmlSettings;
+			sourceTree = "<group>";
+		};
+		0B5CB43E16481CAF00A86BFE /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				0B5CB43F16481CAF00A86BFE /* tinyxml.cpp */,
+				0B5CB44016481CAF00A86BFE /* tinyxml.h */,
+				0B5CB44116481CAF00A86BFE /* tinyxmlerror.cpp */,
+				0B5CB44216481CAF00A86BFE /* tinyxmlparser.cpp */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		0B5CB44316481CAF00A86BFE /* src */ = {
+			isa = PBXGroup;
+			children = (
+				0B5CB44416481CAF00A86BFE /* ofxXmlSettings.cpp */,
+				0B5CB44516481CAF00A86BFE /* ofxXmlSettings.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -109,7 +172,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				DC66CCB71641730E0085D40A /* Data */,
 				E4D8936A11527B74007E1F53 /* src */,
 				BB24E1F710DAA51900E9C588 /* openFrameworks */,
 				BB16F26B0F2B646B00518274 /* addons */,
@@ -150,6 +212,7 @@
 		BB16F26B0F2B646B00518274 /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				0B5CB43D16481CAF00A86BFE /* ofxXmlSettings */,
 			);
 			name = addons;
 			sourceTree = "<group>";
@@ -174,13 +237,6 @@
 			name = core;
 			sourceTree = "<group>";
 		};
-		DC66CCB71641730E0085D40A /* Data */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Data;
-			sourceTree = "<group>";
-		};
 		E41D40FE13B3A0D800A75A5D /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +253,7 @@
 				E4D8936C11527B74007E1F53 /* testApp.h */,
 				0B4397791640AD690047FA67 /* ball.cpp */,
 				0B43977A1640AD690047FA67 /* ball.h */,
+				0B5CB41E1647E34C00A86BFE /* UI */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -271,6 +328,8 @@
 				BB24DDCA10DA781C00E9C588 /* ofxiphone-Info.plist in Resources */,
 				E41D3ED713B38FB500A75A5D /* Project.xcconfig in Resources */,
 				E41D3EE613B3906D00A75A5D /* CoreOF.xcconfig in Resources */,
+				0B5CB4251647E35D00A86BFE /* MyViewController.xib in Resources */,
+				0B5CB4261647E35D00A86BFE /* MyViewController~ipad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +359,12 @@
 				E4D8936E11527B74007E1F53 /* main.mm in Sources */,
 				E4D8936F11527B74007E1F53 /* testApp.mm in Sources */,
 				0B43977B1640AD690047FA67 /* ball.cpp in Sources */,
+				0B5CB4271647E35D00A86BFE /* AlertViewDelegate.mm in Sources */,
+				0B5CB4281647E35D00A86BFE /* MyViewController.mm in Sources */,
+				0B5CB44616481CAF00A86BFE /* tinyxml.cpp in Sources */,
+				0B5CB44716481CAF00A86BFE /* tinyxmlerror.cpp in Sources */,
+				0B5CB44816481CAF00A86BFE /* tinyxmlparser.cpp in Sources */,
+				0B5CB44916481CAF00A86BFE /* ofxXmlSettings.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,7 +386,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iPhone_Prefix.pch;
 				INFOPLIST_FILE = "ofxiphone-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "${TARGET_NAME}";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv6 armv7";
 			};
 			name = Debug;
@@ -332,7 +399,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iPhone_Prefix.pch;
 				INFOPLIST_FILE = "ofxiphone-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "${TARGET_NAME}";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv6 armv7";
 			};
 			name = Release;

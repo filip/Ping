@@ -5,49 +5,72 @@
 #include "ofxiPhoneExtras.h"
 
 #include "ball.h"
+#include "ofxiPhoneExternalDisplay.h"
 
+#include "ofxXmlSettings.h"
 
-class testApp : public ofxiPhoneApp{
+#define NUM_PTS 800
+
+class testApp : public ofxiPhoneApp, public ofxiPhoneExternalDisplay {
+    
 	
-    public:
-        void setup();
-        void update();
-        void draw();
-        void exit();
+public:
+    void setup();
+    void update();
+    void draw();
+    void exit();    
 	
-        void touchDown(ofTouchEventArgs & touch);
-        void touchMoved(ofTouchEventArgs & touch);
-        void touchUp(ofTouchEventArgs & touch);
-        void touchDoubleTap(ofTouchEventArgs & touch);
-        void touchCancelled(ofTouchEventArgs & touch);
-
-        void lostFocus();
-        void gotFocus();
-        void gotMemoryWarning();
-        void deviceOrientationChanged(int newOrientation);
+    void touchDown(ofTouchEventArgs & touch);
+    void touchMoved(ofTouchEventArgs & touch);
+    void touchUp(ofTouchEventArgs & touch);
+    void touchDoubleTap(ofTouchEventArgs & touch);
+    void touchCancelled(ofTouchEventArgs & touch);
     
-        Ball ball;
+    void lostFocus();
+    void gotFocus();
+    void gotMemoryWarning();
+    void deviceOrientationChanged(int newOrientation);
     
-        float touchRadiusX;
-        float touchRadiusY;
+    Ball ball;
     
-        ofVideoGrabber grabber;
-        ofTexture tex;
-        unsigned char * pix;
+    float touchRadiusX;
+    float touchRadiusY;
     
-        float w;
-        float h;
+    //ofVideoGrabber grabber;
+    //ofTexture tex;
+    //unsigned char * pix;
+    //ofPixels graypix;
     
-        float counter;
+    ofSoundPlayer  pong;    
+    ofiPhoneVideoPlayer video;
     
-        float lives;
-        int speed;
+    ofRectangle buttonMenuRect;
+    ofRectangle buttonCreditsRect;
+    ofRectangle buttonInfoRect;
+    ofRectangle buttonExternalDisplayRect;
+    ofRectangle buttonStartRect;
     
-        ofSoundPlayer  pong;
+    bool victory;
+    int subMenu;
+    int maxScore;
+    int inc;
+    float blink;
     
-        ofiPhoneVideoPlayer video;
+    void presentExternalDisplayPopup();
+    void presentExternalDisplayNotFoundPopup();
+    void presentMirroringFailedPopup();
+    void popupDismissed();
     
-
+    void externalDisplayConnected();
+    void externalDisplayDisconnected();
+    void externalDisplayChanged();
+    
+    ofTrueTypeFont TinyUnicode;
+    ofTrueTypeFont TinyUnicode20;
+    
+    ofxXmlSettings settings;
+    
+    
 };
 
 
