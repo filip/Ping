@@ -36,8 +36,9 @@ public:
     float touchRadiusX;
     float touchRadiusY;
     
-    //ofVideoGrabber grabber;
-    //ofTexture tex;
+    //GRABBER
+    ofVideoGrabber grabber;
+    ofTexture tex;
     //unsigned char * pix;
     //ofPixels graypix;
     

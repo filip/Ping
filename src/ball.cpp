@@ -1,0 +1,200 @@
+//
+//  ball.cpp
+//  ping
+//
+//  Created by Filip Visnjic on 14/12/2011.
+//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//
+
+#include "ball.h"
+
+void Ball::setup(){
+    
+    xpos = ofGetWidth()/2;
+    ypos = ofGetHeight()/2;
+    counter=0; //1000000000
+    
+    float s = ofRandom(-1,1);
+    if (s>=0){
+        xspeed = 2;
+    } else {
+        xspeed = -2;      
+    }
+    
+    float a = ofRandom(-1,1);
+    if (a>=0){
+        yspeed = 2;
+    } else {
+        yspeed = -2;      
+    }
+    
+    speed = 2;
+
+    //mysize must be an even number (4,6,8,10,12...)
+    mysize = 10;
+    pixels = new unsigned char [videoH*videoW*3];
+    
+    t=0.5f;
+    timer=ofGetElapsedTimef();
+    
+    pong.loadSound("pong.wav");
+
+
+}
+
+void Ball::update(){
+    
+    for (int i = 5; i < videoW; i+=10){
+        for (int j = 5; j < videoH; j+=10){
+            
+            if (xpos >= i - (1.5*mysize) && xpos <= i + (1.5*mysize) && ypos >= j - (1.5*mysize) && ypos <= j + (1.5*mysize)){
+                
+                
+                
+                int cubes[9];
+                int inc = 0;
+                
+                //checking surrounding pxls ball.mysize
+                for (int q=-1; q<2; q++){
+                    for (int p=-1; p<2; p++){
+                        
+                        //this is as formula to translate colours into grayscale                
+                        //unsigned char r = pixels[((11*(j * 480 + i)*3)+16*((j * 480 + i)*3+1)+5*((j * 480 + i)*3+2))/32];
+                        
+                        // using the blue channel to manage pixels                            
+                        unsigned char f = pixels[((j+p) * videoW + (i+q))*3+2];                
+                        float val2 = 1 - ((float)f / 255.0f);
+                        if (val2 > 0.5){                                
+                            cubes[inc]=1;
+                        }
+                        else {
+                            cubes[inc]=0;
+                        }
+                        inc++;
+                    }
+                }
+                
+                //move right
+                if ((cubes[0]==1 && cubes[1]==1 && cubes[2] == 1) && (cubes[6]==0 && cubes[7]==0 && cubes[8] == 0)) {
+                    
+                    xspeed = speed;
+                    yspeed = 0;
+                    
+                    if (ofGetElapsedTimef()-timer > t) {
+                    counter++;
+                    timer=ofGetElapsedTimef();
+                    pong.play();  
+                    }
+
+                }
+                
+                //move left                        
+                else if ((cubes[6]==1 && cubes[7]==1 && cubes[8] == 1) && (cubes[0]==0 && cubes[1]==0 && cubes[2] == 0)) {
+                    
+                    xspeed = -speed;
+                    yspeed = 0;
+                    
+                    if (ofGetElapsedTimef()-timer > t) {
+                        counter++;
+                        timer=ofGetElapsedTimef();
+                        pong.play();  
+                    }
+                }
+                
+                //move up
+                else if ((cubes[2]==1 && cubes[5]==1 && cubes[8] == 1) && (cubes[0]==0 && cubes[3]==0 && cubes[6] == 0)) {                            
+                    
+                    xspeed = 0;
+                    yspeed = -speed;
+                    
+                    if (ofGetElapsedTimef()-timer > t) {
+                        counter++;
+                        timer=ofGetElapsedTimef();
+                        pong.play();  
+                    }
+                    
+                }
+                
+                //move down
+                else if ((cubes[0]==1 && cubes[3]==1 && cubes[6] == 1) && (cubes[2]==0 && cubes[5]==0 && cubes[8] == 0)){                        
+                    
+                    xspeed = 0;
+                    yspeed = speed;
+                    
+                    if (ofGetElapsedTimef()-timer > t) {
+                        counter++;
+                        timer=ofGetElapsedTimef();
+                        pong.play();  
+                    }
+                    
+                }
+                
+                //move right+down
+                else if ((cubes[0]==1 && cubes[2]==0 && cubes[6]==0 && cubes[8]==0) || (cubes[0]==1 && cubes[2]==1 && cubes[6]==1 && cubes[8]==0)) {                            
+                    
+                    xspeed = speed;
+                    yspeed = speed;
+                    
+                    if (ofGetElapsedTimef()-timer > t) {
+                        counter++;
+                        timer=ofGetElapsedTimef();
+                        pong.play();  
+                    }
+                    
+                }
+                
+                //move left+down
+                else if ((cubes[6]==1 && cubes[0]==0 && cubes[8]==0 && cubes[2]==0) || (cubes[6]==1 && cubes[0]==1 && cubes[8]==1 && cubes[2]==0)) {                            
+                    
+                    xspeed = -speed;
+                    yspeed = speed;
+                    
+                     if (ofGetElapsedTimef()-timer > t) {
+                        counter++;
+                        timer=ofGetElapsedTimef();
+                        pong.play();  
+                    }
+                    
+                }
+                
+                //move right+up
+                else if ((cubes[2]==1 && cubes[0]==0 && cubes[8]==0 && cubes[6]==0) || (cubes[2]==1 && cubes[0]==1 && cubes[8]==1 && cubes[6]==0)) {                            
+                    
+                    xspeed = speed;
+                    yspeed = -speed;                            
+                    
+                    if (ofGetElapsedTimef()-timer > t) {
+                        counter++;
+                        timer=ofGetElapsedTimef();
+                        pong.play();  
+                    }
+                    
+                }
+                
+                //move left+up
+                else if ((cubes[8]==1 && cubes[2]==0 && cubes[6]==0 && cubes[0]==0) || (cubes[8]==1 && cubes[2]==1 && cubes[6]==1 && cubes[0]==0)) {                            
+                    
+                    xspeed = -speed;
+                    yspeed = -speed;                            
+                    
+                    if (ofGetElapsedTimef()-timer > t) {
+                        counter++;
+                        timer=ofGetElapsedTimef();
+                        pong.play();  
+                    }
+                    
+                }                                                            
+            }                
+        }                              
+    }
+    
+}
+
+void Ball::draw(){
+    
+    ofFill();
+    ofSetColor(255, 255, 255);
+    ofRect(xpos, ypos, mysize, mysize);
+
+}
+

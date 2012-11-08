@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B43977B1640AD690047FA67 /* ball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B4397791640AD690047FA67 /* ball.cpp */; };
-		0B5CB4251647E35D00A86BFE /* MyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B5CB4201647E35D00A86BFE /* MyViewController.xib */; };
-		0B5CB4261647E35D00A86BFE /* MyViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B5CB4211647E35D00A86BFE /* MyViewController~ipad.xib */; };
-		0B5CB4271647E35D00A86BFE /* AlertViewDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0B5CB4221647E35D00A86BFE /* AlertViewDelegate.mm */; };
-		0B5CB4281647E35D00A86BFE /* MyViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0B5CB4231647E35D00A86BFE /* MyViewController.mm */; };
 		0B5CB44616481CAF00A86BFE /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B5CB43F16481CAF00A86BFE /* tinyxml.cpp */; };
 		0B5CB44716481CAF00A86BFE /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B5CB44116481CAF00A86BFE /* tinyxmlerror.cpp */; };
 		0B5CB44816481CAF00A86BFE /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B5CB44216481CAF00A86BFE /* tinyxmlparser.cpp */; };
@@ -25,6 +20,14 @@
 		BB16EBD90F2B2AB500518274 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD80F2B2AB500518274 /* QuartzCore.framework */; };
 		BB24DDCA10DA781C00E9C588 /* ofxiphone-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB24DDC910DA781C00E9C588 /* ofxiphone-Info.plist */; };
 		BBE5EAB80F49AD8400F28951 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE5EAB70F49AD8400F28951 /* AudioToolbox.framework */; };
+		DC3F7B06164BC8A900968A74 /* Commodore_Pixelized.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DC3F7B05164BC8A900968A74 /* Commodore_Pixelized.ttf */; };
+		DC3F7B08164BC8BE00968A74 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC3F7B07164BC8BE00968A74 /* Default-568h@2x.png */; };
+		DC3F7B23164BCB7D00968A74 /* ball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DC3F7B21164BCB7D00968A74 /* ball.cpp */; };
+		DC3F7B33164BCBED00968A74 /* AlertViewDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = DC3F7B2E164BCBED00968A74 /* AlertViewDelegate.mm */; };
+		DC3F7B34164BCBED00968A74 /* MyViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = DC3F7B30164BCBED00968A74 /* MyViewController.mm */; };
+		DC3F7B35164BCBED00968A74 /* MyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC3F7B31164BCBED00968A74 /* MyViewController.xib */; };
+		DC3F7B36164BCBED00968A74 /* MyViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC3F7B32164BCBED00968A74 /* MyViewController~ipad.xib */; };
+		DC3F7B38164BCCBF00968A74 /* pong.wav in Resources */ = {isa = PBXBuildFile; fileRef = DC3F7B37164BCCBF00968A74 /* pong.wav */; };
 		E41D3ED713B38FB500A75A5D /* Project.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E41D3ED613B38FB500A75A5D /* Project.xcconfig */; };
 		E41D3EE613B3906D00A75A5D /* CoreOF.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E41D3EE513B3906D00A75A5D /* CoreOF.xcconfig */; };
 		E41D400B13B39D2100A75A5D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E41D400613B39D2100A75A5D /* AVFoundation.framework */; };
@@ -55,14 +58,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0B4397791640AD690047FA67 /* ball.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ball.cpp; path = ../../pingnew_01/src/ball.cpp; sourceTree = "<group>"; };
-		0B43977A1640AD690047FA67 /* ball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ball.h; path = ../../pingnew_01/src/ball.h; sourceTree = "<group>"; };
-		0B5CB41F1647E35D00A86BFE /* AlertViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlertViewDelegate.h; path = ../../external/src/UI/AlertViewDelegate.h; sourceTree = "<group>"; };
-		0B5CB4201647E35D00A86BFE /* MyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MyViewController.xib; path = ../../external/src/UI/MyViewController.xib; sourceTree = "<group>"; };
-		0B5CB4211647E35D00A86BFE /* MyViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "MyViewController~ipad.xib"; path = "../../external/src/UI/MyViewController~ipad.xib"; sourceTree = "<group>"; };
-		0B5CB4221647E35D00A86BFE /* AlertViewDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AlertViewDelegate.mm; path = ../../external/src/UI/AlertViewDelegate.mm; sourceTree = "<group>"; };
-		0B5CB4231647E35D00A86BFE /* MyViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MyViewController.mm; path = ../../external/src/UI/MyViewController.mm; sourceTree = "<group>"; };
-		0B5CB4241647E35D00A86BFE /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyViewController.h; path = ../../external/src/UI/MyViewController.h; sourceTree = "<group>"; };
 		0B5CB43F16481CAF00A86BFE /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml.cpp; sourceTree = "<group>"; };
 		0B5CB44016481CAF00A86BFE /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml.h; sourceTree = "<group>"; };
 		0B5CB44116481CAF00A86BFE /* tinyxmlerror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlerror.cpp; sourceTree = "<group>"; };
@@ -80,6 +75,17 @@
 		BB16EBD80F2B2AB500518274 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB24DDC910DA781C00E9C588 /* ofxiphone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ofxiphone-Info.plist"; sourceTree = "<group>"; };
 		BBE5EAB70F49AD8400F28951 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		DC3F7B05164BC8A900968A74 /* Commodore_Pixelized.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Commodore_Pixelized.ttf; path = bin/data/Commodore_Pixelized.ttf; sourceTree = SOURCE_ROOT; };
+		DC3F7B07164BC8BE00968A74 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "bin/data/Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
+		DC3F7B21164BCB7D00968A74 /* ball.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ball.cpp; sourceTree = "<group>"; };
+		DC3F7B22164BCB7D00968A74 /* ball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ball.h; sourceTree = "<group>"; };
+		DC3F7B2D164BCBED00968A74 /* AlertViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlertViewDelegate.h; path = UI/AlertViewDelegate.h; sourceTree = "<group>"; };
+		DC3F7B2E164BCBED00968A74 /* AlertViewDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AlertViewDelegate.mm; path = UI/AlertViewDelegate.mm; sourceTree = "<group>"; };
+		DC3F7B2F164BCBED00968A74 /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyViewController.h; path = UI/MyViewController.h; sourceTree = "<group>"; };
+		DC3F7B30164BCBED00968A74 /* MyViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MyViewController.mm; path = UI/MyViewController.mm; sourceTree = "<group>"; };
+		DC3F7B31164BCBED00968A74 /* MyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MyViewController.xib; path = UI/MyViewController.xib; sourceTree = "<group>"; };
+		DC3F7B32164BCBED00968A74 /* MyViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "MyViewController~ipad.xib"; path = "UI/MyViewController~ipad.xib"; sourceTree = "<group>"; };
+		DC3F7B37164BCCBF00968A74 /* pong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = pong.wav; path = bin/data/pong.wav; sourceTree = SOURCE_ROOT; };
 		E41D3ED613B38FB500A75A5D /* Project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
 		E41D3EE513B3906D00A75A5D /* CoreOF.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = CoreOF.xcconfig; path = ../../../libs/openFrameworksCompiled/project/ios/CoreOF.xcconfig; sourceTree = SOURCE_ROOT; };
 		E41D400613B39D2100A75A5D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -121,12 +127,12 @@
 		0B5CB41E1647E34C00A86BFE /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				0B5CB41F1647E35D00A86BFE /* AlertViewDelegate.h */,
-				0B5CB4201647E35D00A86BFE /* MyViewController.xib */,
-				0B5CB4211647E35D00A86BFE /* MyViewController~ipad.xib */,
-				0B5CB4221647E35D00A86BFE /* AlertViewDelegate.mm */,
-				0B5CB4231647E35D00A86BFE /* MyViewController.mm */,
-				0B5CB4241647E35D00A86BFE /* MyViewController.h */,
+				DC3F7B2D164BCBED00968A74 /* AlertViewDelegate.h */,
+				DC3F7B2E164BCBED00968A74 /* AlertViewDelegate.mm */,
+				DC3F7B2F164BCBED00968A74 /* MyViewController.h */,
+				DC3F7B30164BCBED00968A74 /* MyViewController.mm */,
+				DC3F7B31164BCBED00968A74 /* MyViewController.xib */,
+				DC3F7B32164BCBED00968A74 /* MyViewController~ipad.xib */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -237,6 +243,16 @@
 			name = core;
 			sourceTree = "<group>";
 		};
+		DC3F7B04164BC89000968A74 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				DC3F7B37164BCCBF00968A74 /* pong.wav */,
+				DC3F7B05164BC8A900968A74 /* Commodore_Pixelized.ttf */,
+				DC3F7B07164BC8BE00968A74 /* Default-568h@2x.png */,
+			);
+			name = data;
+			sourceTree = "<group>";
+		};
 		E41D40FE13B3A0D800A75A5D /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,11 +264,12 @@
 		E4D8936A11527B74007E1F53 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				DC3F7B04164BC89000968A74 /* data */,
 				E4D8936B11527B74007E1F53 /* main.mm */,
 				E4D8936D11527B74007E1F53 /* testApp.mm */,
 				E4D8936C11527B74007E1F53 /* testApp.h */,
-				0B4397791640AD690047FA67 /* ball.cpp */,
-				0B43977A1640AD690047FA67 /* ball.h */,
+				DC3F7B21164BCB7D00968A74 /* ball.cpp */,
+				DC3F7B22164BCB7D00968A74 /* ball.h */,
 				0B5CB41E1647E34C00A86BFE /* UI */,
 			);
 			path = src;
@@ -328,8 +345,11 @@
 				BB24DDCA10DA781C00E9C588 /* ofxiphone-Info.plist in Resources */,
 				E41D3ED713B38FB500A75A5D /* Project.xcconfig in Resources */,
 				E41D3EE613B3906D00A75A5D /* CoreOF.xcconfig in Resources */,
-				0B5CB4251647E35D00A86BFE /* MyViewController.xib in Resources */,
-				0B5CB4261647E35D00A86BFE /* MyViewController~ipad.xib in Resources */,
+				DC3F7B06164BC8A900968A74 /* Commodore_Pixelized.ttf in Resources */,
+				DC3F7B08164BC8BE00968A74 /* Default-568h@2x.png in Resources */,
+				DC3F7B35164BCBED00968A74 /* MyViewController.xib in Resources */,
+				DC3F7B36164BCBED00968A74 /* MyViewController~ipad.xib in Resources */,
+				DC3F7B38164BCCBF00968A74 /* pong.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,13 +378,13 @@
 			files = (
 				E4D8936E11527B74007E1F53 /* main.mm in Sources */,
 				E4D8936F11527B74007E1F53 /* testApp.mm in Sources */,
-				0B43977B1640AD690047FA67 /* ball.cpp in Sources */,
-				0B5CB4271647E35D00A86BFE /* AlertViewDelegate.mm in Sources */,
-				0B5CB4281647E35D00A86BFE /* MyViewController.mm in Sources */,
 				0B5CB44616481CAF00A86BFE /* tinyxml.cpp in Sources */,
 				0B5CB44716481CAF00A86BFE /* tinyxmlerror.cpp in Sources */,
 				0B5CB44816481CAF00A86BFE /* tinyxmlparser.cpp in Sources */,
 				0B5CB44916481CAF00A86BFE /* ofxXmlSettings.cpp in Sources */,
+				DC3F7B23164BCB7D00968A74 /* ball.cpp in Sources */,
+				DC3F7B33164BCBED00968A74 /* AlertViewDelegate.mm in Sources */,
+				DC3F7B34164BCBED00968A74 /* MyViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,7 +406,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iPhone_Prefix.pch;
 				INFOPLIST_FILE = "ofxiphone-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv6 armv7";
@@ -399,7 +419,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iPhone_Prefix.pch;
 				INFOPLIST_FILE = "ofxiphone-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv6 armv7";

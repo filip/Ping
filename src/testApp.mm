@@ -1,5 +1,5 @@
 #include "testApp.h"
-//#define _USE_LIVE_VIDEO
+#define _USE_LIVE_VIDEO
 
 #import "MyViewController.h"
 #import "AlertViewDelegate.h"
@@ -40,11 +40,19 @@ void testApp::setup(){
    
    
     //resize.m4v is 480x320 pixels
-    video.loadMovie("resize.m4v");
-	video.play();
+        //video.loadMovie("resize.m4v");
+        //video.play();
     //looping the video
-    video.setLoopState(OF_LOOP_NORMAL);
-   
+        //video.setLoopState(OF_LOOP_NORMAL);
+    
+    //GRABBER
+    
+    grabber.initGrabber(480, 360, OF_PIXELS_BGRA);
+    tex.allocate(grabber.getWidth(), grabber.getHeight(), GL_RGB);
+    //pix = new unsigned char[ (int)( grabber.getWidth() * grabber.getHeight() * 3.0) ];
+    
+    //GRABBER END
+    
     ball.setup();
     
     if( settings.loadFile(ofxiPhoneGetDocumentsDirectory() + "settings.xml") ){
@@ -92,10 +100,11 @@ void testApp::setup(){
 //--------------------------------------------------------------
 void testApp::update(){
     
-    if(!video.isLoaded()) {
-        return;
-    }
-    video.update();    
+    // if(!video.isLoaded()) {
+    // return;
+    // }
+    //video.update(); //video
+    grabber.update(); //grabber
    
     //borders    
     if (ball.xpos > ofGetWidth()-20) {
@@ -121,9 +130,13 @@ void testApp::update(){
     
     if(subMenu==5){
         
-        ball.pixels = video.getPixels();        
-        ball.videoW = video.getWidth();
-        ball.videoH = video.getHeight();
+//      ball.pixels = video.getPixels();   // video here     
+//      ball.videoW = video.getWidth();
+//      ball.videoH = video.getHeight();
+        
+        ball.pixels = grabber.getPixels(); //grabber here
+        ball.videoW = grabber.getWidth();
+        ball.videoH = grabber.getHeight();
         
         ball.update();
         
@@ -144,8 +157,9 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
     
-    ofSetColor(255);
-    video.getTexture()->draw(0, 0);
+    
+    grabber.draw(0, 0); //grabber
+    //video.getTexture()->draw(0, 0); //video
 
     ofFill();
     ofEnableAlphaBlending();
@@ -173,7 +187,7 @@ void testApp::draw(){
             
             ofSetColor(255, 255, 255, 180);
             ofRect(20,30,440,260);
-            ofSetColor(150, 0, 0, 200);
+            ofSetColor(0, 0, 0, 200);
             TinyUnicode.drawString("back", 30, ofGetHeight()-50);
             
             TinyUnicode.drawString("info", ofGetWidth()/2-20,ofGetHeight()/5+20);
@@ -191,7 +205,7 @@ void testApp::draw(){
         case 1 : 
             ofSetColor(255, 255, 255, 180);
             ofRect(20,30,440,260);
-            ofSetColor(150, 0, 0, 200);
+            ofSetColor(0, 0, 0, 200);
             TinyUnicode.drawString("back", 30, ofGetHeight()-50);
             TinyUnicode.drawString("info", ofGetWidth()/2-20,ofGetHeight()/5);
             TinyUnicode.drawString("PING! Augmented Pixel is a seventies style \nvideogame, that adds a layer of digital information \nand oldschool aesthetics to a video signal: A classic \nrectangular video game ball moves across a video \nimage. Whenever the ball hits something dark, \nit bounces off. The game itself has no rules and \nno goal. Like GTA, it provides a free environment \nin which anything is possible. And like Sony’s \nEyetoy, it uses a video camera as game controller.", 30, ofGetHeight()/5+40);
@@ -200,7 +214,7 @@ void testApp::draw(){
         case 2 : 
             ofSetColor(255, 255, 255, 180);
             ofRect(20,30,440,260);
-            ofSetColor(150, 0, 0, 200);
+            ofSetColor(0, 0, 0, 200);
             TinyUnicode.drawString("back", 30, ofGetHeight()-50);
             TinyUnicode.drawString("fullscreen", ofGetWidth()/2-40, ofGetHeight()/5);
             break;
@@ -208,7 +222,7 @@ void testApp::draw(){
         case 3 : 
             ofSetColor(255, 255, 255, 180);
             ofRect(20,30,440,260);
-            ofSetColor(150, 0, 0, 200);
+            ofSetColor(0, 0, 0, 200);
             TinyUnicode.drawString("back", 30, ofGetHeight()-50);
             TinyUnicode.drawString("credits", ofGetWidth()/2-30, ofGetHeight()/5);
             break;
@@ -217,7 +231,7 @@ void testApp::draw(){
             
             ofSetColor(255, 255, 255, 180);
             ofRect(20,30,440,260);
-            ofSetColor(150, 0, 0, 200);
+            ofSetColor(0, 0, 0, 200);
 
             TinyUnicode20.drawString("Hello!", ofGetWidth()/2-45,ofGetHeight()/5);
             TinyUnicode.drawString("PING! Augmented Pixel is a seventies style videogame, \nthat adds a layer of digital information and \noldschool aesthetics to a video signal: A classic \nrectangular video game ball moves across a video \nimage. Whenever the ball hits something dark, \nit bounces off. The game itself has no rules and \nno goal. Like GTA, it provides a free environment \nin which anything is possible. And like Sony’s Eyetoy, \nit uses a video camera as game controller.", 30, ofGetHeight()/5+40);
