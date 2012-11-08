@@ -39,10 +39,10 @@ public:
     //GRABBER
     ofVideoGrabber grabber;
     ofTexture tex;
-    //unsigned char * pix;
-    //ofPixels graypix;
     
-    ofSoundPlayer  pong;    
+    ofSoundPlayer pong;
+    ofSoundPlayer ping;
+    
     ofiPhoneVideoPlayer video;
     
     ofRectangle buttonMenuRect;

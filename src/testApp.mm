@@ -24,7 +24,7 @@ void testApp::setup(){
     ofBackground(200,200,200);
     
     ofSetLogLevel(OF_LOG_VERBOSE);
-
+    
     
     touchRadiusX = 40;
     touchRadiusY = 40;
@@ -37,19 +37,19 @@ void testApp::setup(){
     maxScore = 1000;
     
     pong.loadSound("pong.wav");
-   
-   
-    //resize.m4v is 480x320 pixels
-        //video.loadMovie("resize.m4v");
-        //video.play();
-    //looping the video
-        //video.setLoopState(OF_LOOP_NORMAL);
+    ping.loadSound("ping.wav");
+    
+    
+//    //if from VIDEO: resize.m4v is 480x320 pixels
+//    video.loadMovie("resize.m4v");
+//    video.play();
+//    //looping the video
+//    video.setLoopState(OF_LOOP_NORMAL);
     
     //GRABBER
     
     grabber.initGrabber(480, 360, OF_PIXELS_BGRA);
     tex.allocate(grabber.getWidth(), grabber.getHeight(), GL_RGB);
-    //pix = new unsigned char[ (int)( grabber.getWidth() * grabber.getHeight() * 3.0) ];
     
     //GRABBER END
     
@@ -103,42 +103,29 @@ void testApp::update(){
     // if(!video.isLoaded()) {
     // return;
     // }
-    //video.update(); //video
+//    video.update(); //video
     grabber.update(); //grabber
-   
-    //borders    
-    if (ball.xpos > ofGetWidth()-20) {
-        ball.xpos = 20;
-    }
-    else if (ball.xpos < 20){
-        ball.xpos = ofGetWidth()-20;
-    }
-    
-    //bars at bottom and top
-    if (ball.ypos < 30){ 
-        ball.ypos = 30;
-        ball.yspeed = ball.yspeed * (-1);
-        pong.play();        
-    }
-    
-    if (ball.ypos > ofGetHeight()-40){
-        ball.ypos = ofGetHeight()-40;
-        ball.yspeed = ball.yspeed * (-1);        
-        pong.play();
-    }
     
     
     if(subMenu==5){
         
-//      ball.pixels = video.getPixels();   // video here     
-//      ball.videoW = video.getWidth();
-//      ball.videoH = video.getHeight();
+//        ball.pixels = video.getPixels();   // video here     
+//        ball.videoW = video.getWidth();
+//        ball.videoH = video.getHeight();
         
         ball.pixels = grabber.getPixels(); //grabber here
         ball.videoW = grabber.getWidth();
         ball.videoH = grabber.getHeight();
         
+        float t = ball.bounce;
+        float z = ball.counter;
         ball.update();
+        if ( z < ball.counter){
+            pong.play();            
+        }
+        if (t < ball.bounce){
+            ping.play();
+        }
         
         
         if (!victory){
@@ -147,7 +134,7 @@ void testApp::update(){
         }
         
     }        
-
+    
 }
 
 
@@ -158,29 +145,29 @@ void testApp::update(){
 void testApp::draw(){
     
     
-    grabber.draw(0, 0); //grabber
-    //video.getTexture()->draw(0, 0); //video
-
+    //grabber.draw(0, 0); //grabber
+    video.getTexture()->draw(0, 0); //video
+    
     ofFill();
     ofEnableAlphaBlending();
     ofSetColor(255, 255, 255, 180);
     ofRect(20, 20, ofGetWidth()-40, 10);
     ofRect(20, ofGetHeight()-30, ofGetWidth()-40, 10);
     
-//    if (ball.counter >= maxScore){
-//        victory=true;
-//        TinyUnicode.drawString("Victory!", ofGetWidth()/2-30, ofGetHeight()/2-10);
-//        TinyUnicode.drawString("double tap to restart", ofGetWidth()/2-80, ofGetHeight()/2+10);
-//    }
-//    else{
-//        victory=false;
-//    }
+    //    if (ball.counter >= maxScore){
+    //        victory=true;
+    //        TinyUnicode.drawString("Victory!", ofGetWidth()/2-30, ofGetHeight()/2-10);
+    //        TinyUnicode.drawString("double tap to restart", ofGetWidth()/2-80, ofGetHeight()/2+10);
+    //    }
+    //    else{
+    //        victory=false;
+    //    }
     
-   
+    
     
     
     //menu
-
+    
     switch ( subMenu ) {
             
         case 0 :
@@ -232,7 +219,7 @@ void testApp::draw(){
             ofSetColor(255, 255, 255, 180);
             ofRect(20,30,440,260);
             ofSetColor(0, 0, 0, 200);
-
+            
             TinyUnicode20.drawString("Hello!", ofGetWidth()/2-45,ofGetHeight()/5);
             TinyUnicode.drawString("PING! Augmented Pixel is a seventies style videogame, \nthat adds a layer of digital information and \noldschool aesthetics to a video signal: A classic \nrectangular video game ball moves across a video \nimage. Whenever the ball hits something dark, \nit bounces off. The game itself has no rules and \nno goal. Like GTA, it provides a free environment \nin which anything is possible. And like Sony’s Eyetoy, \nit uses a video camera as game controller.", 30, ofGetHeight()/5+40);
             
@@ -241,12 +228,12 @@ void testApp::draw(){
                 if (inc<0){
                     TinyUnicode.drawString("tap to start", ofGetWidth()/2-45, ofGetHeight()-60);
                 }
-
+                
             }
             else{
-            inc=-inc;
-            blink=ofGetElapsedTimef();
-            
+                inc=-inc;
+                blink=ofGetElapsedTimef();
+                
             }
             
             ofNoFill();
@@ -264,7 +251,6 @@ void testApp::draw(){
             ofNoFill();
             //ofRect(20,ofGetHeight()-70,50,30);
             
-
             break;
             
     }
@@ -341,22 +327,45 @@ void testApp::popupDismissed(){
 
 //--------------------------------------------------------------
 void testApp::touchDown(ofTouchEventArgs & touch){
-
+    
     if(subMenu==0){
         if(buttonInfoRect.inside(touch.x, touch.y)){
             subMenu = 1; //info
+            pong.play();            
         }
         
+        
         if(buttonExternalDisplayRect.inside(touch.x, touch.y)){
+
             if(ofxiPhoneExternalDisplay::isExternalScreenConnected()){
-                presentExternalDisplayPopup();
+                if(ofxiPhoneExternalDisplay::isMirroring()){
+                    ofxiPhoneExternalDisplay::mirrorOff();
+                    pong.play();
+                } else {
+                    if(!ofxiPhoneExternalDisplay::mirrorOn()){                        
+                        presentMirroringFailedPopup();
+                        pong.play();
+                    }
+                    
+                }
             } else {
-                presentExternalDisplayNotFoundPopup();
+                presentMirroringFailedPopup();
+                ping.play();
             }
         }
         
+        
+//        if(buttonExternalDisplayRect.inside(touch.x, touch.y)){
+//            if(ofxiPhoneExternalDisplay::isExternalScreenConnected()){
+//                presentExternalDisplayPopup();
+//            } else {
+//                presentExternalDisplayNotFoundPopup();
+//            }
+//        }
+        
         if(buttonCreditsRect.inside(touch.x, touch.y)){
             subMenu = 3; //credits
+            pong.play();            
         }
         
     }
@@ -365,15 +374,22 @@ void testApp::touchDown(ofTouchEventArgs & touch){
         
         if (subMenu==0) {
             subMenu=5;
+            ping.play();            
+        } else if (subMenu==5){
+            subMenu=0;
+            pong.play();            
         } else {
-            subMenu=0;    
+            subMenu=0;
+            ping.play();            
         }
+        
         
     }
     
     if(buttonStartRect.inside(touch.x, touch.y)){
         if (subMenu==4){
             subMenu=5;
+            pong.play();            
         }
     }
     
@@ -383,13 +399,13 @@ void testApp::touchDown(ofTouchEventArgs & touch){
 
 //--------------------------------------------------------------
 void testApp::touchMoved(ofTouchEventArgs & touch){
-
+    
     
 }
 
 //--------------------------------------------------------------
 void testApp::touchUp(ofTouchEventArgs & touch){
-
+    
     
     
     
@@ -427,22 +443,22 @@ void testApp::touchCancelled(ofTouchEventArgs & touch){
 
 //--------------------------------------------------------------
 void testApp::lostFocus(){
-
+    
 }
 
 //--------------------------------------------------------------
 void testApp::gotFocus(){
-
+    
 }
 
 //--------------------------------------------------------------
 void testApp::gotMemoryWarning(){
-
+    
 }
 
 //--------------------------------------------------------------
 void testApp::deviceOrientationChanged(int newOrientation){
-
+    
 }
 
 //--------------------------------------------------------------

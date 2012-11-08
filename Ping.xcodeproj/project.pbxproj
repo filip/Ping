@@ -11,6 +11,7 @@
 		0B5CB44716481CAF00A86BFE /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B5CB44116481CAF00A86BFE /* tinyxmlerror.cpp */; };
 		0B5CB44816481CAF00A86BFE /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B5CB44216481CAF00A86BFE /* tinyxmlparser.cpp */; };
 		0B5CB44916481CAF00A86BFE /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B5CB44416481CAF00A86BFE /* ofxXmlSettings.cpp */; };
+		0BEF96EA164BE2E2007B8782 /* pong.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BEF96E9164BE2E2007B8782 /* pong.wav */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
@@ -21,7 +22,6 @@
 		BB24DDCA10DA781C00E9C588 /* ofxiphone-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB24DDC910DA781C00E9C588 /* ofxiphone-Info.plist */; };
 		BBE5EAB80F49AD8400F28951 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE5EAB70F49AD8400F28951 /* AudioToolbox.framework */; };
 		DC3F7B06164BC8A900968A74 /* Commodore_Pixelized.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DC3F7B05164BC8A900968A74 /* Commodore_Pixelized.ttf */; };
-		DC3F7B08164BC8BE00968A74 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC3F7B07164BC8BE00968A74 /* Default-568h@2x.png */; };
 		DC3F7B23164BCB7D00968A74 /* ball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DC3F7B21164BCB7D00968A74 /* ball.cpp */; };
 		DC3F7B33164BCBED00968A74 /* AlertViewDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = DC3F7B2E164BCBED00968A74 /* AlertViewDelegate.mm */; };
 		DC3F7B34164BCBED00968A74 /* MyViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = DC3F7B30164BCBED00968A74 /* MyViewController.mm */; };
@@ -64,6 +64,7 @@
 		0B5CB44216481CAF00A86BFE /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlparser.cpp; sourceTree = "<group>"; };
 		0B5CB44416481CAF00A86BFE /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxXmlSettings.cpp; sourceTree = "<group>"; };
 		0B5CB44516481CAF00A86BFE /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
+		0BEF96E9164BE2E2007B8782 /* pong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = pong.wav; path = bin/data/pong.wav; sourceTree = SOURCE_ROOT; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Ping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -76,7 +77,6 @@
 		BB24DDC910DA781C00E9C588 /* ofxiphone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ofxiphone-Info.plist"; sourceTree = "<group>"; };
 		BBE5EAB70F49AD8400F28951 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		DC3F7B05164BC8A900968A74 /* Commodore_Pixelized.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Commodore_Pixelized.ttf; path = bin/data/Commodore_Pixelized.ttf; sourceTree = SOURCE_ROOT; };
-		DC3F7B07164BC8BE00968A74 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "bin/data/Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
 		DC3F7B21164BCB7D00968A74 /* ball.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ball.cpp; sourceTree = "<group>"; };
 		DC3F7B22164BCB7D00968A74 /* ball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ball.h; sourceTree = "<group>"; };
 		DC3F7B2D164BCBED00968A74 /* AlertViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlertViewDelegate.h; path = UI/AlertViewDelegate.h; sourceTree = "<group>"; };
@@ -246,9 +246,9 @@
 		DC3F7B04164BC89000968A74 /* data */ = {
 			isa = PBXGroup;
 			children = (
+				0BEF96E9164BE2E2007B8782 /* pong.wav */,
 				DC3F7B37164BCCBF00968A74 /* pong.wav */,
 				DC3F7B05164BC8A900968A74 /* Commodore_Pixelized.ttf */,
-				DC3F7B07164BC8BE00968A74 /* Default-568h@2x.png */,
 			);
 			name = data;
 			sourceTree = "<group>";
@@ -346,10 +346,10 @@
 				E41D3ED713B38FB500A75A5D /* Project.xcconfig in Resources */,
 				E41D3EE613B3906D00A75A5D /* CoreOF.xcconfig in Resources */,
 				DC3F7B06164BC8A900968A74 /* Commodore_Pixelized.ttf in Resources */,
-				DC3F7B08164BC8BE00968A74 /* Default-568h@2x.png in Resources */,
 				DC3F7B35164BCBED00968A74 /* MyViewController.xib in Resources */,
 				DC3F7B36164BCBED00968A74 /* MyViewController~ipad.xib in Resources */,
 				DC3F7B38164BCCBF00968A74 /* pong.wav in Resources */,
+				0BEF96EA164BE2E2007B8782 /* pong.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

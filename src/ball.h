@@ -33,9 +33,9 @@ public:
     int speed;
     float t;
     float counter;
+    float bounce;
     float timer;
-    
-    ofSoundPlayer  pong;   
+
     
 private:
   

@@ -13,6 +13,7 @@ void Ball::setup(){
     xpos = ofGetWidth()/2;
     ypos = ofGetHeight()/2;
     counter=0; //1000000000
+    bounce =0;
     
     float s = ofRandom(-1,1);
     if (s>=0){
@@ -29,7 +30,7 @@ void Ball::setup(){
     }
     
     speed = 2;
-
+    
     //mysize must be an even number (4,6,8,10,12...)
     mysize = 10;
     pixels = new unsigned char [videoH*videoW*3];
@@ -37,12 +38,39 @@ void Ball::setup(){
     t=0.5f;
     timer=ofGetElapsedTimef();
     
-    pong.loadSound("pong.wav");
-
-
+    
+    
 }
 
 void Ball::update(){
+    
+    //borders    
+    if (xpos > ofGetWidth()-30) {
+        xpos = 20;
+    }
+    else if (xpos < 20){
+        xpos = ofGetWidth()-30;
+    }
+    
+    //bars at bottom and top
+    if (ypos < 30){ 
+        ypos = 30;
+        yspeed = yspeed * (-1);
+        if (ofGetElapsedTimef()-timer > t) {
+            bounce++;
+            timer=ofGetElapsedTimef();
+        }
+    }
+    
+    if (ypos > ofGetHeight()-40){
+        ypos = ofGetHeight()-40;
+        yspeed = yspeed * (-1);
+        if (ofGetElapsedTimef()-timer > t) {
+            bounce++;
+            timer=ofGetElapsedTimef();
+        }
+    }
+
     
     for (int i = 5; i < videoW; i+=10){
         for (int j = 5; j < videoH; j+=10){
@@ -81,11 +109,11 @@ void Ball::update(){
                     yspeed = 0;
                     
                     if (ofGetElapsedTimef()-timer > t) {
-                    counter++;
-                    timer=ofGetElapsedTimef();
-                    pong.play();  
+                        counter++;
+                        timer=ofGetElapsedTimef();
+                     
                     }
-
+                    
                 }
                 
                 //move left                        
@@ -97,7 +125,7 @@ void Ball::update(){
                     if (ofGetElapsedTimef()-timer > t) {
                         counter++;
                         timer=ofGetElapsedTimef();
-                        pong.play();  
+                     
                     }
                 }
                 
@@ -110,7 +138,7 @@ void Ball::update(){
                     if (ofGetElapsedTimef()-timer > t) {
                         counter++;
                         timer=ofGetElapsedTimef();
-                        pong.play();  
+                     
                     }
                     
                 }
@@ -124,7 +152,7 @@ void Ball::update(){
                     if (ofGetElapsedTimef()-timer > t) {
                         counter++;
                         timer=ofGetElapsedTimef();
-                        pong.play();  
+                     
                     }
                     
                 }
@@ -138,7 +166,7 @@ void Ball::update(){
                     if (ofGetElapsedTimef()-timer > t) {
                         counter++;
                         timer=ofGetElapsedTimef();
-                        pong.play();  
+
                     }
                     
                 }
@@ -149,10 +177,10 @@ void Ball::update(){
                     xspeed = -speed;
                     yspeed = speed;
                     
-                     if (ofGetElapsedTimef()-timer > t) {
+                    if (ofGetElapsedTimef()-timer > t) {
                         counter++;
                         timer=ofGetElapsedTimef();
-                        pong.play();  
+ 
                     }
                     
                 }
@@ -166,7 +194,7 @@ void Ball::update(){
                     if (ofGetElapsedTimef()-timer > t) {
                         counter++;
                         timer=ofGetElapsedTimef();
-                        pong.play();  
+
                     }
                     
                 }
@@ -180,7 +208,7 @@ void Ball::update(){
                     if (ofGetElapsedTimef()-timer > t) {
                         counter++;
                         timer=ofGetElapsedTimef();
-                        pong.play();  
+
                     }
                     
                 }                                                            
@@ -195,6 +223,6 @@ void Ball::draw(){
     ofFill();
     ofSetColor(255, 255, 255);
     ofRect(xpos, ypos, mysize, mysize);
-
+    
 }
 
