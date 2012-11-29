@@ -5,6 +5,7 @@
 #include "ofxiPhoneExtras.h"
 
 #include "ball.h"
+#include "button.h"
 #include "ofxiPhoneExternalDisplay.h"
 
 #include "ofxXmlSettings.h"
@@ -32,26 +33,33 @@ public:
     void deviceOrientationChanged(int newOrientation);
     
     Ball ball;
+
+    Button buttonMenu;
+    Button buttonCredits;
+    Button buttonInfo;
+    Button buttonExternalDisplay;
+    Button buttonStart;
+    Button buttonPlusThresh;
+    Button buttonMinusThresh;
+    Button buttonOptions;
+    Button buttonSwitch;
+    Button buttonUIcol;
+    
+    ofColor colorUI;
+    ofColor colorText;
     
     float touchRadiusX;
     float touchRadiusY;
     
     //GRABBER
-    ofVideoGrabber grabber;
-    ofTexture tex;
+//    ofVideoGrabber grabber;
+//    ofTexture tex;
     
     ofSoundPlayer pong;
     ofSoundPlayer ping;
-    
     ofiPhoneVideoPlayer video;
     
-    ofRectangle buttonMenuRect;
-    ofRectangle buttonCreditsRect;
-    ofRectangle buttonInfoRect;
-    ofRectangle buttonExternalDisplayRect;
-    ofRectangle buttonStartRect;
-    
-    bool victory;
+    bool whiteUI;
     int subMenu;
     int maxScore;
     int inc;

@@ -11,6 +11,7 @@
 		0B5CB44716481CAF00A86BFE /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B5CB44116481CAF00A86BFE /* tinyxmlerror.cpp */; };
 		0B5CB44816481CAF00A86BFE /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B5CB44216481CAF00A86BFE /* tinyxmlparser.cpp */; };
 		0B5CB44916481CAF00A86BFE /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B5CB44416481CAF00A86BFE /* ofxXmlSettings.cpp */; };
+		0B72608716567B2500BE21EA /* button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B72608516567B2500BE21EA /* button.cpp */; };
 		0BEF96EA164BE2E2007B8782 /* pong.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BEF96E9164BE2E2007B8782 /* pong.wav */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -64,6 +65,8 @@
 		0B5CB44216481CAF00A86BFE /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlparser.cpp; sourceTree = "<group>"; };
 		0B5CB44416481CAF00A86BFE /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxXmlSettings.cpp; sourceTree = "<group>"; };
 		0B5CB44516481CAF00A86BFE /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
+		0B72608516567B2500BE21EA /* button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = button.cpp; sourceTree = "<group>"; };
+		0B72608616567B2500BE21EA /* button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = button.h; sourceTree = "<group>"; };
 		0BEF96E9164BE2E2007B8782 /* pong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = pong.wav; path = bin/data/pong.wav; sourceTree = SOURCE_ROOT; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Ping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ping.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -270,6 +273,8 @@
 				E4D8936C11527B74007E1F53 /* testApp.h */,
 				DC3F7B21164BCB7D00968A74 /* ball.cpp */,
 				DC3F7B22164BCB7D00968A74 /* ball.h */,
+				0B72608516567B2500BE21EA /* button.cpp */,
+				0B72608616567B2500BE21EA /* button.h */,
 				0B5CB41E1647E34C00A86BFE /* UI */,
 			);
 			path = src;
@@ -385,6 +390,7 @@
 				DC3F7B23164BCB7D00968A74 /* ball.cpp in Sources */,
 				DC3F7B33164BCBED00968A74 /* AlertViewDelegate.mm in Sources */,
 				DC3F7B34164BCBED00968A74 /* MyViewController.mm in Sources */,
+				0B72608716567B2500BE21EA /* button.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

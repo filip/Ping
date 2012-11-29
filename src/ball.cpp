@@ -30,12 +30,14 @@ void Ball::setup(){
     }
     
     speed = 2;
-    
     //mysize must be an even number (4,6,8,10,12...)
     mysize = 10;
     pixels = new unsigned char [videoH*videoW*3];
     
+    bounceDark=true;
     t=0.5f;
+    threshold=0.5;
+    
     timer=ofGetElapsedTimef();
     
     
@@ -70,7 +72,7 @@ void Ball::update(){
             timer=ofGetElapsedTimef();
         }
     }
-
+    
     
     for (int i = 5; i < videoW; i+=10){
         for (int j = 5; j < videoH; j+=10){
@@ -92,7 +94,11 @@ void Ball::update(){
                         // using the blue channel to manage pixels                            
                         unsigned char f = pixels[((j+p) * videoW + (i+q))*3+2];                
                         float val2 = 1 - ((float)f / 255.0f);
-                        if (val2 > 0.5){                                
+                        
+                        if (val2 > threshold && bounceDark){                                
+                            cubes[inc]=1;
+                        }
+                        else if (val2 < threshold && !bounceDark){
                             cubes[inc]=1;
                         }
                         else {
@@ -111,7 +117,7 @@ void Ball::update(){
                     if (ofGetElapsedTimef()-timer > t) {
                         counter++;
                         timer=ofGetElapsedTimef();
-                     
+                        
                     }
                     
                 }
@@ -125,7 +131,7 @@ void Ball::update(){
                     if (ofGetElapsedTimef()-timer > t) {
                         counter++;
                         timer=ofGetElapsedTimef();
-                     
+                        
                     }
                 }
                 
@@ -138,7 +144,7 @@ void Ball::update(){
                     if (ofGetElapsedTimef()-timer > t) {
                         counter++;
                         timer=ofGetElapsedTimef();
-                     
+                        
                     }
                     
                 }
@@ -152,7 +158,7 @@ void Ball::update(){
                     if (ofGetElapsedTimef()-timer > t) {
                         counter++;
                         timer=ofGetElapsedTimef();
-                     
+                        
                     }
                     
                 }
@@ -166,7 +172,7 @@ void Ball::update(){
                     if (ofGetElapsedTimef()-timer > t) {
                         counter++;
                         timer=ofGetElapsedTimef();
-
+                        
                     }
                     
                 }
@@ -180,7 +186,7 @@ void Ball::update(){
                     if (ofGetElapsedTimef()-timer > t) {
                         counter++;
                         timer=ofGetElapsedTimef();
- 
+                        
                     }
                     
                 }
@@ -194,7 +200,7 @@ void Ball::update(){
                     if (ofGetElapsedTimef()-timer > t) {
                         counter++;
                         timer=ofGetElapsedTimef();
-
+                        
                     }
                     
                 }
@@ -208,7 +214,7 @@ void Ball::update(){
                     if (ofGetElapsedTimef()-timer > t) {
                         counter++;
                         timer=ofGetElapsedTimef();
-
+                        
                     }
                     
                 }                                                            
@@ -221,7 +227,7 @@ void Ball::update(){
 void Ball::draw(){
     
     ofFill();
-    ofSetColor(255, 255, 255);
+    ofSetColor(ballCol,200);
     ofRect(xpos, ypos, mysize, mysize);
     
 }

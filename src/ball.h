@@ -31,11 +31,13 @@ public:
     int videoW;
     int videoH;
     int speed;
+    bool bounceDark;
     float t;
     float counter;
     float bounce;
     float timer;
-
+    float threshold;
+    ofColor ballCol;
     
 private:
   

@@ -29,8 +29,10 @@ void testApp::setup(){
     touchRadiusX = 40;
     touchRadiusY = 40;
     
+    colorUI = (255,255,255);
+    colorText = (0,0,0);
+    ball.ballCol = (255,255,255); 
     
-    victory = false;
     inc=1;
     blink=ofGetElapsedTimef();
     
@@ -40,16 +42,16 @@ void testApp::setup(){
     ping.loadSound("ping.wav");
     
     
-//    //if from VIDEO: resize.m4v is 480x320 pixels
-//    video.loadMovie("resize.m4v");
-//    video.play();
-//    //looping the video
-//    video.setLoopState(OF_LOOP_NORMAL);
+    //if from VIDEO: resize.m4v is 480x320 pixels
+    video.loadMovie("resize.m4v");
+    video.play();
+    //looping the video
+    video.setLoopState(OF_LOOP_NORMAL);
     
     //GRABBER
     
-    grabber.initGrabber(480, 360, OF_PIXELS_BGRA);
-    tex.allocate(grabber.getWidth(), grabber.getHeight(), GL_RGB);
+//    grabber.initGrabber(480, 360, OF_PIXELS_BGRA);
+//    tex.allocate(grabber.getWidth(), grabber.getHeight(), GL_RGB);
     
     //GRABBER END
     
@@ -70,30 +72,16 @@ void testApp::setup(){
     
     //menu buttons
     
-    buttonMenuRect.width = 50;
-    buttonMenuRect.height = 30;
-    buttonMenuRect.x = 20;
-    buttonMenuRect.y = ofGetHeight()-70;
-    
-    buttonInfoRect.width = 55;
-    buttonInfoRect.height = 30;
-    buttonInfoRect.x = ofGetWidth()/2-30;
-    buttonInfoRect.y = ofGetHeight()/5;
-    
-    buttonExternalDisplayRect.width = 150;
-    buttonExternalDisplayRect.height = 30;
-    buttonExternalDisplayRect.x = ofGetWidth()/2-75;
-    buttonExternalDisplayRect.y = ofGetHeight()/5*2;
-    
-    buttonCreditsRect.width = 75;
-    buttonCreditsRect.height = 30;
-    buttonCreditsRect.x = ofGetWidth()/2-40;
-    buttonCreditsRect.y = ofGetHeight()/5*3;
-    
-    buttonStartRect.width = 110;
-    buttonStartRect.height = 30;
-    buttonStartRect.x = ofGetWidth()/2-50;
-    buttonStartRect.y = ofGetHeight()-80;
+    buttonMenu.set(TinyUnicode, "menu", 45, ofGetHeight()-50);
+    buttonInfo.set(TinyUnicode, "info", ofGetWidth()/2,ofGetHeight()/6+20);
+    buttonOptions.set(TinyUnicode, "options", ofGetWidth()/2,ofGetHeight()/6*2+20);
+    buttonExternalDisplay.set(TinyUnicode,"external display", ofGetWidth()/2, ofGetHeight()/6*3+20);
+    buttonCredits.set(TinyUnicode, "credits", ofGetWidth()/2, ofGetHeight()/6*4+20);
+    buttonStart.set(TinyUnicode, "tap to start", ofGetWidth()/2, ofGetHeight()-60);
+    buttonPlusThresh.set(TinyUnicode, "plus", ofGetWidth()/2+80,ofGetHeight()/6*2);
+    buttonMinusThresh.set(TinyUnicode, "minus", ofGetWidth()/2-85,ofGetHeight()/6*2);
+    buttonSwitch.set(TinyUnicode, "bounce from light px",ofGetWidth()/2,ofGetHeight()/6*3);
+    buttonUIcol.set(TinyUnicode, "black UI",ofGetWidth()/2,ofGetHeight()/6*4);
     
 }
 
@@ -103,19 +91,29 @@ void testApp::update(){
     // if(!video.isLoaded()) {
     // return;
     // }
-//    video.update(); //video
-    grabber.update(); //grabber
     
+    video.update(); //video
+//    grabber.update(); //grabber
+    
+    if(whiteUI){
+        colorUI = (255,255,255);
+        colorText = (0,0,0);
+        ball.ballCol = (255,255,255); 
+    }else{
+        colorUI = (0,0,0);
+        colorText = (255,255,255);
+        ball.ballCol = (0,0,0); 
+    }
     
     if(subMenu==5){
         
-//        ball.pixels = video.getPixels();   // video here     
-//        ball.videoW = video.getWidth();
-//        ball.videoH = video.getHeight();
+        ball.pixels = video.getPixels();   // video here     
+        ball.videoW = video.getWidth();
+        ball.videoH = video.getHeight();
         
-        ball.pixels = grabber.getPixels(); //grabber here
-        ball.videoW = grabber.getWidth();
-        ball.videoH = grabber.getHeight();
+//        ball.pixels = grabber.getPixels(); //grabber here
+//        ball.videoW = grabber.getWidth();
+//        ball.videoH = grabber.getHeight();
         
         float t = ball.bounce;
         float z = ball.counter;
@@ -126,12 +124,9 @@ void testApp::update(){
         if (t < ball.bounce){
             ping.play();
         }
-        
-        
-        if (!victory){
-            ball.xpos = ball.xpos + ball.xspeed;
-            ball.ypos = ball.ypos + ball.yspeed;   
-        }
+    
+        ball.xpos = ball.xpos + ball.xspeed;
+        ball.ypos = ball.ypos + ball.yspeed;       
         
     }        
     
@@ -144,27 +139,15 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
     
-    
+    ofSetColor(255);
     //grabber.draw(0, 0); //grabber
     video.getTexture()->draw(0, 0); //video
     
     ofFill();
     ofEnableAlphaBlending();
-    ofSetColor(255, 255, 255, 180);
+    ofSetColor(colorUI,180);
     ofRect(20, 20, ofGetWidth()-40, 10);
     ofRect(20, ofGetHeight()-30, ofGetWidth()-40, 10);
-    
-    //    if (ball.counter >= maxScore){
-    //        victory=true;
-    //        TinyUnicode.drawString("Victory!", ofGetWidth()/2-30, ofGetHeight()/2-10);
-    //        TinyUnicode.drawString("double tap to restart", ofGetWidth()/2-80, ofGetHeight()/2+10);
-    //    }
-    //    else{
-    //        victory=false;
-    //    }
-    
-    
-    
     
     //menu
     
@@ -172,53 +155,48 @@ void testApp::draw(){
             
         case 0 :
             
-            ofSetColor(255, 255, 255, 180);
+            ofSetColor(colorUI,180);
             ofRect(20,30,440,260);
-            ofSetColor(0, 0, 0, 200);
-            TinyUnicode.drawString("back", 30, ofGetHeight()-50);
-            
-            TinyUnicode.drawString("info", ofGetWidth()/2-20,ofGetHeight()/5+20);
-            TinyUnicode.drawString("external display", ofGetWidth()/2-65, ofGetHeight()/5*2+20);
-            TinyUnicode.drawString("credits", ofGetWidth()/2-30, ofGetHeight()/5*3+20);
-            
+            ofSetColor(colorText, 200);
+            buttonMenu.draw();
+            buttonOptions.draw();
+            buttonInfo.draw();
+            buttonExternalDisplay.draw();
+            buttonCredits.draw();
+                    
             ofNoFill();
-            
-            //ofRect(ofGetWidth()/2-30,ofGetHeight()/5,55,30);
-            //ofRect(ofGetWidth()/2-75, ofGetHeight()/5*2,150,30);
-            //ofRect(ofGetWidth()/2-40, ofGetHeight()/5*3,75,30); 
             
             break;
             
         case 1 : 
-            ofSetColor(255, 255, 255, 180);
+            ofSetColor(colorUI,180);
             ofRect(20,30,440,260);
-            ofSetColor(0, 0, 0, 200);
-            TinyUnicode.drawString("back", 30, ofGetHeight()-50);
-            TinyUnicode.drawString("info", ofGetWidth()/2-20,ofGetHeight()/5);
+            ofSetColor(colorText, 200);
+            buttonMenu.draw();
+            TinyUnicode.drawString("info", (int) buttonInfo.rx,ofGetHeight()/5);
             TinyUnicode.drawString("PING! Augmented Pixel is a seventies style \nvideogame, that adds a layer of digital information \nand oldschool aesthetics to a video signal: A classic \nrectangular video game ball moves across a video \nimage. Whenever the ball hits something dark, \nit bounces off. The game itself has no rules and \nno goal. Like GTA, it provides a free environment \nin which anything is possible. And like Sony’s \nEyetoy, it uses a video camera as game controller.", 30, ofGetHeight()/5+40);
             break;
             
         case 2 : 
-            ofSetColor(255, 255, 255, 180);
+            ofSetColor(colorUI,180);
             ofRect(20,30,440,260);
             ofSetColor(0, 0, 0, 200);
-            TinyUnicode.drawString("back", 30, ofGetHeight()-50);
-            TinyUnicode.drawString("fullscreen", ofGetWidth()/2-40, ofGetHeight()/5);
+            buttonMenu.draw();
             break;
             
         case 3 : 
-            ofSetColor(255, 255, 255, 180);
+            ofSetColor(colorUI,180);
             ofRect(20,30,440,260);
-            ofSetColor(0, 0, 0, 200);
-            TinyUnicode.drawString("back", 30, ofGetHeight()-50);
-            TinyUnicode.drawString("credits", ofGetWidth()/2-30, ofGetHeight()/5);
+            ofSetColor(colorText, 200);
+            buttonMenu.draw();
+            TinyUnicode.drawString("credits", (int) buttonCredits.rx, ofGetHeight()/5);
             break;
             
         case 4 :            
             
-            ofSetColor(255, 255, 255, 180);
+            ofSetColor(colorUI,180);
             ofRect(20,30,440,260);
-            ofSetColor(0, 0, 0, 200);
+            ofSetColor(colorText, 200);
             
             TinyUnicode20.drawString("Hello!", ofGetWidth()/2-45,ofGetHeight()/5);
             TinyUnicode.drawString("PING! Augmented Pixel is a seventies style videogame, \nthat adds a layer of digital information and \noldschool aesthetics to a video signal: A classic \nrectangular video game ball moves across a video \nimage. Whenever the ball hits something dark, \nit bounces off. The game itself has no rules and \nno goal. Like GTA, it provides a free environment \nin which anything is possible. And like Sony’s Eyetoy, \nit uses a video camera as game controller.", 30, ofGetHeight()/5+40);
@@ -226,7 +204,7 @@ void testApp::draw(){
             
             if (ofGetElapsedTimef() - blink < 0.5f) {
                 if (inc<0){
-                    TinyUnicode.drawString("tap to start", ofGetWidth()/2-45, ofGetHeight()-60);
+                    buttonStart.draw();
                 }
                 
             }
@@ -241,9 +219,24 @@ void testApp::draw(){
             
             break;
             
+        case 6 :
+            
+            ofSetColor(colorUI,180);
+            ofRect(20,30,440,260);
+            ofSetColor(colorText, 200);
+            TinyUnicode.drawString("bounce threshold", ofGetWidth()/2 - (int)(TinyUnicode.stringWidth("bounce threshold")*0.5f), ofGetHeight()/6*2- (int)(TinyUnicode.stringHeight("bounce threshold")*0.5f)-20); 
+            TinyUnicode.drawString(ofToString(ball.threshold), ofGetWidth()/2 - (int)(TinyUnicode.stringWidth(ofToString(ball.threshold))*0.5f), ofGetHeight()/6*2-(int)(TinyUnicode.stringHeight(ofToString(ball.threshold))*0.5f));            
+            buttonMenu.draw();
+            buttonPlusThresh.draw();
+            buttonMinusThresh.draw();
+            buttonSwitch.draw();
+            buttonUIcol.draw();
+            
+            break;
+            
         default :
             
-            TinyUnicode.drawString("menu", 30, ofGetHeight()-50);
+            buttonMenu.draw();
             TinyUnicode.drawString("score " + ofToString(ball.counter), 30, 60);
             ball.draw();
             
@@ -329,13 +322,18 @@ void testApp::popupDismissed(){
 void testApp::touchDown(ofTouchEventArgs & touch){
     
     if(subMenu==0){
-        if(buttonInfoRect.inside(touch.x, touch.y)){
+        buttonMenu.set(TinyUnicode, "back", 45, ofGetHeight()-50);
+        if(buttonInfo.bbox.inside(touch.x, touch.y)){
             subMenu = 1; //info
             pong.play();            
         }
         
-        
-        if(buttonExternalDisplayRect.inside(touch.x, touch.y)){
+        if(buttonOptions.bbox.inside(touch.x, touch.y)){
+            subMenu = 6; //sensitivity
+            pong.play();            
+        }
+           
+        if(buttonExternalDisplay.bbox.inside(touch.x, touch.y)){
 
             if(ofxiPhoneExternalDisplay::isExternalScreenConnected()){
                 if(ofxiPhoneExternalDisplay::isMirroring()){
@@ -344,7 +342,7 @@ void testApp::touchDown(ofTouchEventArgs & touch){
                 } else {
                     if(!ofxiPhoneExternalDisplay::mirrorOn()){                        
                         presentMirroringFailedPopup();
-                        pong.play();
+                        ping.play();
                     }
                     
                 }
@@ -363,20 +361,22 @@ void testApp::touchDown(ofTouchEventArgs & touch){
 //            }
 //        }
         
-        if(buttonCreditsRect.inside(touch.x, touch.y)){
+        if(buttonCredits.bbox.inside(touch.x, touch.y)){
             subMenu = 3; //credits
             pong.play();            
         }
         
     }
     
-    if(buttonMenuRect.inside(touch.x, touch.y)){
+    if(buttonMenu.bbox.inside(touch.x, touch.y)){
         
         if (subMenu==0) {
             subMenu=5;
+            buttonMenu.set(TinyUnicode, "menu", 45, ofGetHeight()-50);
             ping.play();            
         } else if (subMenu==5){
             subMenu=0;
+            buttonMenu.set(TinyUnicode, "back", 45, ofGetHeight()-50);
             pong.play();            
         } else {
             subMenu=0;
@@ -386,14 +386,58 @@ void testApp::touchDown(ofTouchEventArgs & touch){
         
     }
     
-    if(buttonStartRect.inside(touch.x, touch.y)){
+    if(buttonStart.bbox.inside(touch.x, touch.y)){
         if (subMenu==4){
-            subMenu=5;
+            subMenu=5;            
             pong.play();            
         }
     }
     
-    
+    if(subMenu==6){
+        if(buttonPlusThresh.bbox.inside(touch.x, touch.y)){
+            if(ball.threshold<0.9){
+                ball.threshold+=0.1;;
+                pong.play();
+            }
+        }
+        
+        if(buttonMinusThresh.bbox.inside(touch.x, touch.y)){
+            if(ball.threshold>0.2){
+                ball.threshold-=0.1;
+                ping.play();
+            }
+        }
+        if(buttonSwitch.bbox.inside(touch.x, touch.y)){
+            if(ball.bounceDark){
+                ball.bounceDark= false;
+                buttonSwitch.st= "bounce from dark px";
+                ball.threshold= 1-ball.threshold;
+                ping.play();
+            }
+            else {
+                ball.bounceDark= true;
+                buttonSwitch.st= "bounce from light px";
+                ball.threshold= 1-ball.threshold;
+                pong.play();
+            }
+            
+        }
+        if(buttonUIcol.bbox.inside(touch.x, touch.y)){
+            if(whiteUI){
+                whiteUI= false;
+                buttonUIcol.st= "white UI";
+                ping.play();
+            }
+            else {
+                whiteUI= true;
+                buttonUIcol.st= "black UI";
+                pong.play();
+            }
+            
+        }
+        
+        
+    }
     
 }
 
