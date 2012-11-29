@@ -43,15 +43,21 @@ void testApp::setup(){
     
     
     //if from VIDEO: resize.m4v is 480x320 pixels
-    video.loadMovie("resize.m4v");
-    video.play();
+        //video.loadMovie("resize.m4v");
+        //video.play();
     //looping the video
-    video.setLoopState(OF_LOOP_NORMAL);
+        //video.setLoopState(OF_LOOP_NORMAL);
     
     //GRABBER
     
-//    grabber.initGrabber(480, 360, OF_PIXELS_BGRA);
-//    tex.allocate(grabber.getWidth(), grabber.getHeight(), GL_RGB);
+    if (ofGetWidth()>550){
+        grabber.initGrabber(640, 480, OF_PIXELS_BGRA);
+    }
+    if (ofGetWidth()<500){
+        grabber.initGrabber(480, 320, OF_PIXELS_BGRA);
+    }
+    
+    tex.allocate(grabber.getWidth(), grabber.getHeight(), GL_RGB);
     
     //GRABBER END
     
@@ -92,8 +98,8 @@ void testApp::update(){
     // return;
     // }
     
-    video.update(); //video
-//    grabber.update(); //grabber
+    //video.update(); //video
+    grabber.update(); //grabber
     
     if(whiteUI){
         colorUI = (255,255,255);
@@ -107,13 +113,13 @@ void testApp::update(){
     
     if(subMenu==5){
         
-        ball.pixels = video.getPixels();   // video here     
-        ball.videoW = video.getWidth();
-        ball.videoH = video.getHeight();
+//        ball.pixels = video.getPixels();   // video here     
+//        ball.videoW = video.getWidth();
+//        ball.videoH = video.getHeight();
         
-//        ball.pixels = grabber.getPixels(); //grabber here
-//        ball.videoW = grabber.getWidth();
-//        ball.videoH = grabber.getHeight();
+        ball.pixels = grabber.getPixels(); //grabber here
+        ball.videoW = grabber.getWidth();
+        ball.videoH = grabber.getHeight();
         
         float t = ball.bounce;
         float z = ball.counter;
@@ -140,8 +146,8 @@ void testApp::update(){
 void testApp::draw(){
     
     ofSetColor(255);
-    //grabber.draw(0, 0); //grabber
-    video.getTexture()->draw(0, 0); //video
+    grabber.draw(0, 0); //grabber
+    //video.getTexture()->draw(0, 0); //video
     
     ofFill();
     ofEnableAlphaBlending();

@@ -52,12 +52,15 @@ public:
     float touchRadiusY;
     
     //GRABBER
-//    ofVideoGrabber grabber;
-//    ofTexture tex;
+    ofVideoGrabber grabber;
+    ofTexture tex;
     
+    //VIDEO PLAYER
+    ofiPhoneVideoPlayer video;
+    
+    //SOUND PLAYER
     ofSoundPlayer pong;
     ofSoundPlayer ping;
-    ofiPhoneVideoPlayer video;
     
     bool whiteUI;
     int subMenu;
