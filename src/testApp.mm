@@ -29,9 +29,9 @@ void testApp::setup(){
     touchRadiusX = 40;
     touchRadiusY = 40;
     
-    colorUI = (255,255,255);
-    colorText = (0,0,0);
-    ball.ballCol = (255,255,255); 
+    colorUI = (255);
+    colorText = (0);
+    ball.ballCol = (255);
     
     inc=1;
     blink=ofGetElapsedTimef();
@@ -43,24 +43,27 @@ void testApp::setup(){
     
     
     //if from VIDEO: resize.m4v is 480x320 pixels
-        //video.loadMovie("resize.m4v");
-        //video.play();
-    //looping the video
-        //video.setLoopState(OF_LOOP_NORMAL);
+//    video.loadMovie("resize.m4v");
+//    video.play();
+//    //looping the video
+//    video.setLoopState(OF_LOOP_NORMAL);
     
     //GRABBER
     
-    if (ofGetWidth()>550){
-        grabber.initGrabber(640, 480, OF_PIXELS_BGRA);
+    if (ofGetWidth()==568){
+        grabber.initGrabber(640, 480, OF_PIXELS_BGRA); //iPhone 5
     }
-    if (ofGetWidth()<500){
-        grabber.initGrabber(480, 320, OF_PIXELS_BGRA);
+    if (ofGetWidth()==480){
+        grabber.initGrabber(480, 320, OF_PIXELS_BGRA); //iPhone 4-
     }
-    
+    if (ofGetWidth()==1024){
+        grabber.initGrabber(1024, 748, OF_PIXELS_BGRA); //iPad
+    }    
     tex.allocate(grabber.getWidth(), grabber.getHeight(), GL_RGB);
     
     //GRABBER END
     
+
     ball.setup();
     
     if( settings.loadFile(ofxiPhoneGetDocumentsDirectory() + "settings.xml") ){
@@ -72,10 +75,14 @@ void testApp::setup(){
     ball.counter= settings.getValue("settings:score",0);
     ball.xpos = settings.getValue("settings:xpos",ofGetWidth()/2);
     ball.ypos = settings.getValue("settings:ypos", ofGetHeight()/2);
-    ball.xspeed = settings.getValue("settings:speedx", 2);
-    ball.yspeed = settings.getValue("settings:speedy", 2);
+    ball.xspeed = settings.getValue("settings:speedx", ball.speed);
+    ball.yspeed = settings.getValue("settings:speedy", ball.speed);
     subMenu = settings.getValue("settings:firstLaunch",5);
-    
+    whiteUI = settings.getValue("settings:colorUI", 1);
+    ball.bounceDark = settings.getValue("settings:bounceDark", 1);
+    ball.threshold = settings.getValue("settings:threshhold",0.5);
+
+
     //menu buttons
     
     buttonMenu.set(TinyUnicode, "menu", 45, ofGetHeight()-50);
@@ -86,29 +93,31 @@ void testApp::setup(){
     buttonStart.set(TinyUnicode, "tap to start", ofGetWidth()/2, ofGetHeight()-60);
     buttonPlusThresh.set(TinyUnicode, "plus", ofGetWidth()/2+80,ofGetHeight()/6*2);
     buttonMinusThresh.set(TinyUnicode, "minus", ofGetWidth()/2-85,ofGetHeight()/6*2);
-    buttonSwitch.set(TinyUnicode, "bounce from light px",ofGetWidth()/2,ofGetHeight()/6*3);
-    buttonUIcol.set(TinyUnicode, "black UI",ofGetWidth()/2,ofGetHeight()/6*4);
+    buttonSwitch.set(TinyUnicode, "bounce from dark px",ofGetWidth()/2,ofGetHeight()/6*3);
+    buttonUIcol.set(TinyUnicode, "white UI",ofGetWidth()/2,ofGetHeight()/6*4);
+    if (!ball.bounceDark){
+        buttonSwitch.st="bounce from light px";
+    }
+    if (!whiteUI){
+        buttonUIcol.st = "black UI";
+    }
     
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
     
-    // if(!video.isLoaded()) {
-    // return;
-    // }
-    
     //video.update(); //video
     grabber.update(); //grabber
     
     if(whiteUI){
-        colorUI = (255,255,255);
-        colorText = (0,0,0);
-        ball.ballCol = (255,255,255); 
+        colorUI = (255);
+        colorText = (0);
+        ball.ballCol = (255); 
     }else{
-        colorUI = (0,0,0);
-        colorText = (255,255,255);
-        ball.ballCol = (0,0,0); 
+        colorUI = (0);
+        colorText = (255);
+        ball.ballCol = (0); 
     }
     
     if(subMenu==5){
@@ -162,7 +171,7 @@ void testApp::draw(){
         case 0 :
             
             ofSetColor(colorUI,180);
-            ofRect(20,30,440,260);
+            ofRect(20,30,ofGetWidth()-40,ofGetHeight()-60);
             ofSetColor(colorText, 200);
             buttonMenu.draw();
             buttonOptions.draw();
@@ -176,36 +185,39 @@ void testApp::draw(){
             
         case 1 : 
             ofSetColor(colorUI,180);
-            ofRect(20,30,440,260);
+            ofRect(20,30,ofGetWidth()-40,ofGetHeight()-60);
             ofSetColor(colorText, 200);
             buttonMenu.draw();
             TinyUnicode.drawString("info", (int) buttonInfo.rx,ofGetHeight()/5);
-            TinyUnicode.drawString("PING! Augmented Pixel is a seventies style \nvideogame, that adds a layer of digital information \nand oldschool aesthetics to a video signal: A classic \nrectangular video game ball moves across a video \nimage. Whenever the ball hits something dark, \nit bounces off. The game itself has no rules and \nno goal. Like GTA, it provides a free environment \nin which anything is possible. And like Sony’s \nEyetoy, it uses a video camera as game controller.", 30, ofGetHeight()/5+40);
+            TinyUnicode.drawString("PING! Augmented Pixel is a seventies style \nvideogame, that adds a layer of digital information \nand oldschool aesthetics to a video signal: A classic \nrectangular video game ball moves across a video \nimage. \n \nWhenever the ball hits something dark, \nit bounces off. The game itself has no rules and \nno goal. Like GTA, it provides a free environment \nin which anything is possible. And like Sony’s \nEyetoy, it uses a video camera as game controller.", ofGetWidth()/2-210, ofGetHeight()/2-60);
             break;
             
         case 2 : 
             ofSetColor(colorUI,180);
-            ofRect(20,30,440,260);
+            ofRect(20,30,ofGetWidth()-40,ofGetHeight()-60);
             ofSetColor(0, 0, 0, 200);
             buttonMenu.draw();
             break;
             
         case 3 : 
             ofSetColor(colorUI,180);
-            ofRect(20,30,440,260);
+            ofRect(20,30,ofGetWidth()-40,ofGetHeight()-60);
             ofSetColor(colorText, 200);
             buttonMenu.draw();
-            TinyUnicode.drawString("credits", (int) buttonCredits.rx, ofGetHeight()/5);
+            TinyUnicode.drawString("credits ", (int) buttonCredits.rx, ofGetHeight()/5);
+            TinyUnicode.drawString("PING! by Andrey Yelbayev and Filip Visnjic, \ninspired by Niklas Roy", ofGetWidth()/2-190, ofGetHeight()/2);
+            
+
             break;
             
         case 4 :            
             
             ofSetColor(colorUI,180);
-            ofRect(20,30,440,260);
+            ofRect(20,30,ofGetWidth()-40,ofGetHeight()-60);
             ofSetColor(colorText, 200);
             
             TinyUnicode20.drawString("Hello!", ofGetWidth()/2-45,ofGetHeight()/5);
-            TinyUnicode.drawString("PING! Augmented Pixel is a seventies style videogame, \nthat adds a layer of digital information and \noldschool aesthetics to a video signal: A classic \nrectangular video game ball moves across a video \nimage. Whenever the ball hits something dark, \nit bounces off. The game itself has no rules and \nno goal. Like GTA, it provides a free environment \nin which anything is possible. And like Sony’s Eyetoy, \nit uses a video camera as game controller.", 30, ofGetHeight()/5+40);
+            TinyUnicode.drawString("PING! Augmented Pixel is a seventies style videogame, \nthat adds a layer of digital information and \noldschool aesthetics to a video signal: A classic \nrectangular video game ball moves across a video \nimage. \n\nWhenever the ball hits something dark, \nit bounces off.", ofGetWidth()/2-210, ofGetHeight()/2-40);
             
             
             if (ofGetElapsedTimef() - blink < 0.5f) {
@@ -228,9 +240,9 @@ void testApp::draw(){
         case 6 :
             
             ofSetColor(colorUI,180);
-            ofRect(20,30,440,260);
+            ofRect(20,30,ofGetWidth()-40,ofGetHeight()-60);
             ofSetColor(colorText, 200);
-            TinyUnicode.drawString("bounce threshold", ofGetWidth()/2 - (int)(TinyUnicode.stringWidth("bounce threshold")*0.5f), ofGetHeight()/6*2- (int)(TinyUnicode.stringHeight("bounce threshold")*0.5f)-20); 
+            TinyUnicode.drawString("bounce threshold", ofGetWidth()/2 - (int)(TinyUnicode.stringWidth("bounce threshold")*0.5f), ofGetHeight()/6*2- (int)(TinyUnicode.stringHeight("bounce threshold")*0.5f)-30); 
             TinyUnicode.drawString(ofToString(ball.threshold), ofGetWidth()/2 - (int)(TinyUnicode.stringWidth(ofToString(ball.threshold))*0.5f), ofGetHeight()/6*2-(int)(TinyUnicode.stringHeight(ofToString(ball.threshold))*0.5f));            
             buttonMenu.draw();
             buttonPlusThresh.draw();
@@ -265,34 +277,38 @@ void testApp::exit(){
     settings.setValue("settings:ypos", ball.ypos);
     settings.setValue("settings:speedx", ball.xspeed);
     settings.setValue("settings:speedy", ball.yspeed);
-    settings.setValue("settings:firstLaunch", 5);
+    settings.setValue("settings:colorUI", whiteUI);
+    settings.setValue("settings:threshhold", ball.threshold);
+    settings.setValue("settings:bounceDark", ball.bounceDark);
+    settings.setValue("settings:firstLaunch", 5);    
     settings.saveFile("settings.xml");
+    
     pong.stop();
     
 }
 
 void testApp::presentExternalDisplayPopup(){
     
-    alertViewDelegate = [[[AlertViewDelegate alloc] init] retain];
-    
-    UIAlertView * alert = [[[UIAlertView alloc] initWithTitle:@"External Display" 
-                                                      message:@"Select a External Display Mode" 
-                                                     delegate:alertViewDelegate 
-                                            cancelButtonTitle:@"Cancel" 
-                                            otherButtonTitles:nil] retain];
-    
-    vector<ofxiPhoneExternalDisplayMode> displayModes;
-    displayModes = ofxiPhoneExternalDisplay::getExternalDisplayModes();
-    
-    [alert addButtonWithTitle:@"Preferred Mode"];
-    
-    for(int i = 0; i < displayModes.size(); i++){
-        string buttonText = ofToString(displayModes[i].width) + " x " + ofToString(displayModes[i].height);
-        [alert addButtonWithTitle:ofxStringToNSString(buttonText)];
-    }
-    
-    [alert show];
-    [alert release];
+//    alertViewDelegate = [[[AlertViewDelegate alloc] init] retain];
+//    
+//    UIAlertView * alert = [[[UIAlertView alloc] initWithTitle:@"External Display" 
+//                                                      message:@"Select a External Display Mode" 
+//                                                     delegate:alertViewDelegate 
+//                                            cancelButtonTitle:@"Cancel" 
+//                                            otherButtonTitles:nil] retain];
+//    
+//    vector<ofxiPhoneExternalDisplayMode> displayModes;
+//    displayModes = ofxiPhoneExternalDisplay::getExternalDisplayModes();
+//    
+//    [alert addButtonWithTitle:@"Preferred Mode"];
+//    
+//    for(int i = 0; i < displayModes.size(); i++){
+//        string buttonText = ofToString(displayModes[i].width) + " x " + ofToString(displayModes[i].height);
+//        [alert addButtonWithTitle:ofxStringToNSString(buttonText)];
+//    }
+//    
+//    [alert show];
+//    [alert release];
 }
 
 //--------------------------------------------------------------
@@ -415,14 +431,14 @@ void testApp::touchDown(ofTouchEventArgs & touch){
         }
         if(buttonSwitch.bbox.inside(touch.x, touch.y)){
             if(ball.bounceDark){
-                ball.bounceDark= false;
-                buttonSwitch.st= "bounce from dark px";
+                ball.bounceDark= 0;
+                buttonSwitch.st= "bounce from light px";
                 ball.threshold= 1-ball.threshold;
                 ping.play();
             }
             else {
-                ball.bounceDark= true;
-                buttonSwitch.st= "bounce from light px";
+                ball.bounceDark= 1;
+                buttonSwitch.st= "bounce from dark px";
                 ball.threshold= 1-ball.threshold;
                 pong.play();
             }
@@ -430,13 +446,13 @@ void testApp::touchDown(ofTouchEventArgs & touch){
         }
         if(buttonUIcol.bbox.inside(touch.x, touch.y)){
             if(whiteUI){
-                whiteUI= false;
-                buttonUIcol.st= "white UI";
+                whiteUI= 0;
+                buttonUIcol.st= "black UI";
                 ping.play();
             }
             else {
-                whiteUI= true;
-                buttonUIcol.st= "black UI";
+                whiteUI= 1;
+                buttonUIcol.st= "white UI";
                 pong.play();
             }
             
@@ -470,16 +486,16 @@ void testApp::touchDoubleTap(ofTouchEventArgs & touch){
         
         float s = ofRandom(-1,1);
         if (s>=0){
-            ball.xspeed = 2;
+            ball.xspeed = ball.speed;
         } else {
-            ball.xspeed = -2;      
+            ball.xspeed = -ball.speed;      
         }
         
         float a = ofRandom(-1,1);
         if (a>=0){
-            ball.yspeed = 2;
+            ball.yspeed = ball.speed;
         } else {
-            ball.yspeed = -2;      
+            ball.yspeed = -ball.speed;      
         }
         
         ball.counter = 0;

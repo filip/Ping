@@ -15,26 +15,33 @@ void Ball::setup(){
     counter=0; //1000000000
     bounce =0;
     
+    
+    
+    if (ofGetWidth()==1024){
+        speed = 4;       
+    }
+    else { speed = 2;
+    }
+    
     float s = ofRandom(-1,1);
     if (s>=0){
-        xspeed = 2;
+        xspeed = speed;
     } else {
-        xspeed = -2;      
+        xspeed = -speed;
     }
     
     float a = ofRandom(-1,1);
     if (a>=0){
-        yspeed = 2;
+        yspeed = speed;
     } else {
-        yspeed = -2;      
+        yspeed = -speed;      
     }
     
-    speed = 2;
+    
     //mysize must be an even number (4,6,8,10,12...)
     mysize = 10;
     pixels = new unsigned char [videoH*videoW*3];
     
-    bounceDark=true;
     t=0.5f;
     threshold=0.5;
     
