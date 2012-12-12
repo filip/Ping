@@ -9,6 +9,7 @@
 #include "ofxiPhoneExternalDisplay.h"
 
 #include "ofxXmlSettings.h"
+#include "ofxSVG.h"
 
 #define NUM_PTS 800
 
@@ -45,6 +46,15 @@ public:
     Button buttonSwitch;
     Button buttonUIcol;
     
+    ofxSVG svg1;
+    ofxSVG svg2;
+    ofxSVG svg3;
+    ofxSVG svg4;
+    ofxSVG svg5;
+    ofxSVG svg6;
+    ofxSVG svg7;
+    ofxSVG svg8;
+    
     ofColor colorUI;
     ofColor colorText;
     
@@ -56,7 +66,7 @@ public:
     ofTexture tex;
     
     //VIDEO PLAYER
-    ofiPhoneVideoPlayer video;
+//    ofiPhoneVideoPlayer video;
     
     //SOUND PLAYER
     ofSoundPlayer pong;
@@ -67,6 +77,7 @@ public:
     int maxScore;
     int inc;
     float blink;
+    float scale;
     
     void presentExternalDisplayPopup();
     void presentExternalDisplayNotFoundPopup();
@@ -78,7 +89,6 @@ public:
     void externalDisplayChanged();
     
     ofTrueTypeFont TinyUnicode;
-    ofTrueTypeFont TinyUnicode20;
     
     ofxXmlSettings settings;
     

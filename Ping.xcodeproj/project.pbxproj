@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B0809961677ACD0002110E4 /* src_colors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B08098D1677ACD0002110E4 /* src_colors.cpp */; };
+		0B0809971677ACD0002110E4 /* svgtiny.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B08098E1677ACD0002110E4 /* svgtiny.cpp */; };
+		0B0809981677ACD0002110E4 /* svgtiny_gradient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B0809901677ACD0002110E4 /* svgtiny_gradient.cpp */; };
+		0B0809991677ACD0002110E4 /* svgtiny_list.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B0809921677ACD0002110E4 /* svgtiny_list.cpp */; };
+		0B08099A1677ACD0002110E4 /* ofxSVG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B0809941677ACD0002110E4 /* ofxSVG.cpp */; };
 		0B5CB44616481CAF00A86BFE /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B5CB43F16481CAF00A86BFE /* tinyxml.cpp */; };
 		0B5CB44716481CAF00A86BFE /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B5CB44116481CAF00A86BFE /* tinyxmlerror.cpp */; };
 		0B5CB44816481CAF00A86BFE /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B5CB44216481CAF00A86BFE /* tinyxmlparser.cpp */; };
@@ -59,6 +64,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0B08098D1677ACD0002110E4 /* src_colors.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = src_colors.cpp; sourceTree = "<group>"; };
+		0B08098E1677ACD0002110E4 /* svgtiny.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgtiny.cpp; sourceTree = "<group>"; };
+		0B08098F1677ACD0002110E4 /* svgtiny.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgtiny.h; sourceTree = "<group>"; };
+		0B0809901677ACD0002110E4 /* svgtiny_gradient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgtiny_gradient.cpp; sourceTree = "<group>"; };
+		0B0809911677ACD0002110E4 /* svgtiny_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgtiny_internal.h; sourceTree = "<group>"; };
+		0B0809921677ACD0002110E4 /* svgtiny_list.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgtiny_list.cpp; sourceTree = "<group>"; };
+		0B0809941677ACD0002110E4 /* ofxSVG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxSVG.cpp; sourceTree = "<group>"; };
+		0B0809951677ACD0002110E4 /* ofxSVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSVG.h; sourceTree = "<group>"; };
 		0B5CB43F16481CAF00A86BFE /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml.cpp; sourceTree = "<group>"; };
 		0B5CB44016481CAF00A86BFE /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml.h; sourceTree = "<group>"; };
 		0B5CB44116481CAF00A86BFE /* tinyxmlerror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlerror.cpp; sourceTree = "<group>"; };
@@ -127,6 +140,54 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B0809891677ACD0002110E4 /* ofxSvg */ = {
+			isa = PBXGroup;
+			children = (
+				0B08098A1677ACD0002110E4 /* libs */,
+				0B0809931677ACD0002110E4 /* src */,
+			);
+			name = ofxSvg;
+			path = ../../../addons/ofxSvg;
+			sourceTree = "<group>";
+		};
+		0B08098A1677ACD0002110E4 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				0B08098B1677ACD0002110E4 /* svgTiny */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		0B08098B1677ACD0002110E4 /* svgTiny */ = {
+			isa = PBXGroup;
+			children = (
+				0B08098C1677ACD0002110E4 /* src */,
+			);
+			path = svgTiny;
+			sourceTree = "<group>";
+		};
+		0B08098C1677ACD0002110E4 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				0B08098D1677ACD0002110E4 /* src_colors.cpp */,
+				0B08098E1677ACD0002110E4 /* svgtiny.cpp */,
+				0B08098F1677ACD0002110E4 /* svgtiny.h */,
+				0B0809901677ACD0002110E4 /* svgtiny_gradient.cpp */,
+				0B0809911677ACD0002110E4 /* svgtiny_internal.h */,
+				0B0809921677ACD0002110E4 /* svgtiny_list.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		0B0809931677ACD0002110E4 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				0B0809941677ACD0002110E4 /* ofxSVG.cpp */,
+				0B0809951677ACD0002110E4 /* ofxSVG.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		0B5CB41E1647E34C00A86BFE /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -221,6 +282,7 @@
 		BB16F26B0F2B646B00518274 /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				0B0809891677ACD0002110E4 /* ofxSvg */,
 				0B5CB43D16481CAF00A86BFE /* ofxXmlSettings */,
 			);
 			name = addons;
@@ -391,6 +453,11 @@
 				DC3F7B33164BCBED00968A74 /* AlertViewDelegate.mm in Sources */,
 				DC3F7B34164BCBED00968A74 /* MyViewController.mm in Sources */,
 				0B72608716567B2500BE21EA /* button.cpp in Sources */,
+				0B0809961677ACD0002110E4 /* src_colors.cpp in Sources */,
+				0B0809971677ACD0002110E4 /* svgtiny.cpp in Sources */,
+				0B0809981677ACD0002110E4 /* svgtiny_gradient.cpp in Sources */,
+				0B0809991677ACD0002110E4 /* svgtiny_list.cpp in Sources */,
+				0B08099A1677ACD0002110E4 /* ofxSVG.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

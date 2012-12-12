@@ -19,8 +19,6 @@ void testApp::setup(){
     
 	TinyUnicode.loadFont("Commodore_Pixelized.ttf", 10, false);
     
-    TinyUnicode20.loadFont("Commodore_Pixelized.ttf", 20, false);
-    
     ofBackground(200,200,200);
     
     ofSetLogLevel(OF_LOG_VERBOSE);
@@ -82,15 +80,14 @@ void testApp::setup(){
     ball.bounceDark = settings.getValue("settings:bounceDark", 1);
     ball.threshold = settings.getValue("settings:threshhold",0.5);
 
-
     //menu buttons
     
-    buttonMenu.set(TinyUnicode, "menu", 45, ofGetHeight()-50);
+    buttonMenu.set(TinyUnicode, "menu", 60, ofGetHeight()-50);
     buttonInfo.set(TinyUnicode, "info", ofGetWidth()/2,ofGetHeight()/6+20);
     buttonOptions.set(TinyUnicode, "options", ofGetWidth()/2,ofGetHeight()/6*2+20);
     buttonExternalDisplay.set(TinyUnicode,"external display", ofGetWidth()/2, ofGetHeight()/6*3+20);
     buttonCredits.set(TinyUnicode, "credits", ofGetWidth()/2, ofGetHeight()/6*4+20);
-    buttonStart.set(TinyUnicode, "tap to start", ofGetWidth()/2, ofGetHeight()-60);
+    buttonStart.set(TinyUnicode, "next", ofGetWidth()-60, ofGetHeight()-50);
     buttonPlusThresh.set(TinyUnicode, "plus", ofGetWidth()/2+80,ofGetHeight()/6*2);
     buttonMinusThresh.set(TinyUnicode, "minus", ofGetWidth()/2-85,ofGetHeight()/6*2);
     buttonSwitch.set(TinyUnicode, "bounce from dark px",ofGetWidth()/2,ofGetHeight()/6*3);
@@ -101,13 +98,20 @@ void testApp::setup(){
     if (!whiteUI){
         buttonUIcol.st = "black UI";
     }
-    
+    svg1.load("Ping_12.svg");
+    svg2.load("Ping_11.svg");
+    svg3.load("Ping_10.svg");
+    svg4.load("Ping_9.svg");
+    svg5.load("Ping_13.svg");
+    svg6.load("Ping_14.svg");
+    svg7.load("Ping_15.svg");
+    svg8.load("Ping_16.svg");
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
     
-    //video.update(); //video
+//    video.update(); //video
     grabber.update(); //grabber
     
     if(whiteUI){
@@ -166,10 +170,8 @@ void testApp::draw(){
     
     //menu
     
-    switch ( subMenu ) {
-            
-        case 0 :
-            
+    switch ( subMenu ) {            
+        case 0 :            
             ofSetColor(colorUI,180);
             ofRect(20,30,ofGetWidth()-40,ofGetHeight()-60);
             ofSetColor(colorText, 200);
@@ -177,68 +179,60 @@ void testApp::draw(){
             buttonOptions.draw();
             buttonInfo.draw();
             buttonExternalDisplay.draw();
-            buttonCredits.draw();
-                    
-            ofNoFill();
-            
-            break;
-            
+            buttonCredits.draw();                    
+            ofNoFill();            
+            break;            
         case 1 : 
             ofSetColor(colorUI,180);
             ofRect(20,30,ofGetWidth()-40,ofGetHeight()-60);
             ofSetColor(colorText, 200);
             buttonMenu.draw();
-            TinyUnicode.drawString("info", (int) buttonInfo.rx,ofGetHeight()/5);
-            TinyUnicode.drawString("PING! Augmented Pixel is a seventies style \nvideogame, that adds a layer of digital information \nand oldschool aesthetics to a video signal: A classic \nrectangular video game ball moves across a video \nimage. \n \nWhenever the ball hits something dark, \nit bounces off. The game itself has no rules and \nno goal. Like GTA, it provides a free environment \nin which anything is possible. And like Sony’s \nEyetoy, it uses a video camera as game controller.", ofGetWidth()/2-210, ofGetHeight()/2-60);
-            break;
-            
+            if (ofGetElapsedTimef() - blink < 0.5f) {
+                if (inc<0){
+                    buttonStart.draw();
+                }
+            }
+            else{
+                inc=-inc;
+                blink=ofGetElapsedTimef();                
+            }
+            TinyUnicode.drawString("       This is PING! Augmented Pixel. \nIt is a tribute to Pong games that utilises \nthe camera feed of your device to interact \nwith a pixel ball. Whenever the ball hits \n      something dark it bounces off.", ofGetWidth()/2-170, ofGetHeight()/2-20);            
+            break;            
         case 2 : 
             ofSetColor(colorUI,180);
             ofRect(20,30,ofGetWidth()-40,ofGetHeight()-60);
             ofSetColor(0, 0, 0, 200);
             buttonMenu.draw();
-            break;
-            
+            break;            
         case 3 : 
             ofSetColor(colorUI,180);
             ofRect(20,30,ofGetWidth()-40,ofGetHeight()-60);
             ofSetColor(colorText, 200);
             buttonMenu.draw();
             TinyUnicode.drawString("credits ", (int) buttonCredits.rx, ofGetHeight()/5);
-            TinyUnicode.drawString("PING! by Andrey Yelbayev and Filip Visnjic, \ninspired by Niklas Roy", ofGetWidth()/2-190, ofGetHeight()/2);
-            
-
-            break;
-            
-        case 4 :            
-            
+            TinyUnicode.drawString("PING! made by Andrey Yelbayev, \npublished by CreativeApplication.Net, \ninspired by Niklas Roy", ofGetWidth()/2-180, ofGetHeight()/2-10);
+            break;            
+        case 4 :
+            buttonMenu.set(TinyUnicode, "back", 60, ofGetHeight()-50);
             ofSetColor(colorUI,180);
             ofRect(20,30,ofGetWidth()-40,ofGetHeight()-60);
-            ofSetColor(colorText, 200);
-            
-            TinyUnicode20.drawString("Hello!", ofGetWidth()/2-45,ofGetHeight()/5);
-            TinyUnicode.drawString("PING! Augmented Pixel is a seventies style videogame, \nthat adds a layer of digital information and \noldschool aesthetics to a video signal: A classic \nrectangular video game ball moves across a video \nimage. \n\nWhenever the ball hits something dark, \nit bounces off.", ofGetWidth()/2-210, ofGetHeight()/2-40);
-            
-            
+            ofSetColor(colorText, 200); 
+            TinyUnicode.drawString("Hello", (int) ofGetWidth()/2-25,ofGetHeight()/5+40); 
+            TinyUnicode.drawString("       This is PING! Augmented Pixel. \nIt is a tribute to Pong games that utilises \nthe camera feed of your device to interact \nwith a pixel ball. Whenever the ball hits \n       something dark it bounces off.", ofGetWidth()/2-170, ofGetHeight()/2-20);
             if (ofGetElapsedTimef() - blink < 0.5f) {
                 if (inc<0){
                     buttonStart.draw();
                 }
-                
             }
             else{
                 inc=-inc;
-                blink=ofGetElapsedTimef();
-                
-            }
-            
+                blink=ofGetElapsedTimef();                
+            }            
             ofNoFill();
             //ofRect(ofGetWidth()/2-50, ofGetHeight()-80, 110, 30);
             
             break;
-            
         case 6 :
-            
             ofSetColor(colorUI,180);
             ofRect(20,30,ofGetWidth()-40,ofGetHeight()-60);
             ofSetColor(colorText, 200);
@@ -249,24 +243,140 @@ void testApp::draw(){
             buttonMinusThresh.draw();
             buttonSwitch.draw();
             buttonUIcol.draw();
-            
             break;
-            
-        default :
-            
+        case 7:
+            ofSetColor(colorUI,180);
+            ofRect(20,30,ofGetWidth()-40,ofGetHeight()-60);
+            ofSetColor(colorText, 200);
             buttonMenu.draw();
-            TinyUnicode.drawString("score " + ofToString(ball.counter), 30, 60);
-            ball.draw();
-            
-            
-            ofNoFill();
-            //ofRect(20,ofGetHeight()-70,50,30);
-            
+            if (ofGetElapsedTimef() - blink < 0.5f) {
+                if (inc<0){
+                    buttonStart.draw();
+                }
+            }
+            else{
+                inc=-inc;
+                blink=ofGetElapsedTimef();                
+            }
+            ofPushMatrix();
+            ofTranslate(ofGetWidth()/2,ofGetHeight()/2-30);    
+            scale = 0.6*ofGetHeight()/svg1.getHeight();
+            ofScale(scale, scale);
+            ofTranslate(-svg1.getWidth()/2,-svg1.getHeight()/2);    
+            if (whiteUI){
+            svg1.draw();
+            } else {
+            svg5.draw();
+            }
+            ofPopMatrix();
+            TinyUnicode.drawString("You may point your camera at bright monochrome\n       surface and use a finger to play", ofGetWidth()/2- 180, ofGetHeight() - 90);         
             break;
+        case 8:
+            ofSetColor(colorUI,180);
+            ofRect(20,30,ofGetWidth()-40,ofGetHeight()-60);
+            ofSetColor(colorText, 200);
+            buttonMenu.draw();
+            if (ofGetElapsedTimef() - blink < 0.5f) {
+                if (inc<0){
+                    buttonStart.draw();
+                }
+            }
+            else{
+                inc=-inc;
+                blink=ofGetElapsedTimef();                
+            }
+            ofPushMatrix();
+            ofTranslate(ofGetWidth()/2,ofGetHeight()/2-30);    
+            scale = 0.6*ofGetHeight()/svg2.getHeight();
+            ofScale(scale, scale);
+            ofTranslate(-svg2.getWidth()/2,-svg2.getHeight()/2);    
+            if (whiteUI){
+                svg2.draw();
+            } else {
+                svg6.draw();
+            }
+            ofPopMatrix();
+            TinyUnicode.drawString("or inspect your surroundings to see how\n      the ball will bounce around.", ofGetWidth()/2- 160,ofGetHeight() - 90); 
+            break;
+        case 9:
+            ofSetColor(colorUI,180);
+            ofRect(20,30,ofGetWidth()-40,ofGetHeight()-60);
+            ofSetColor(colorText, 200);
+            buttonMenu.draw();
+            if (ofGetElapsedTimef() - blink < 0.5f) {
+                if (inc<0){
+                    buttonStart.draw();
+                }
+            }
+            else{
+                inc=-inc;
+                blink=ofGetElapsedTimef();                
+            }
+            ofPushMatrix();
+            ofTranslate(ofGetWidth()/2,ofGetHeight()/2-30);    
+            scale = 0.6*ofGetHeight()/svg3.getHeight();
+            ofScale(scale, scale);
+            ofTranslate(-svg3.getWidth()/2,-svg3.getHeight()/2);    
+            if (whiteUI){
+                svg3.draw();
+            } else {
+                svg7.draw();
+            }
+            ofPopMatrix();
+            TinyUnicode.drawString("You may plug your device to external monitor,", ofGetWidth()/2 - 180,ofGetHeight() - 90); 
+            break;
+        case 10:
+            ofSetColor(colorUI,180);
+            ofRect(20,30,ofGetWidth()-40,ofGetHeight()-60);
+            ofSetColor(colorText, 200);
+            buttonMenu.draw();
+            if (ofGetElapsedTimef() - blink < 0.5f) {
+                if (inc<0){
+                    buttonStart.draw();
+                }
+            }
+            else{
+                inc=-inc;
+                blink=ofGetElapsedTimef();                
+            }
+            ofPushMatrix();
+            ofTranslate(ofGetWidth()/2,ofGetHeight()/2-30);    
+            scale = 0.6*ofGetHeight()/svg4.getHeight();
+            ofScale(scale, scale);
+            ofTranslate(-svg4.getWidth()/2,-svg4.getHeight()/2);    
+            if (whiteUI){
+                svg4.draw();
+            } else {
+                svg8.draw();
+            }
+            ofPopMatrix();
+            TinyUnicode.drawString("or use a projector to bring gaming experience\n              to the next level.", ofGetWidth()/2- 180, ofGetHeight() - 90); 
+            break;
+        case 11:
+            ofSetColor(colorUI,180);
+            ofRect(20,30,ofGetWidth()-40,ofGetHeight()-60);
+            ofSetColor(colorText, 200);
+            buttonMenu.draw();
+            if (ofGetElapsedTimef() - blink < 0.5f) {
+                if (inc<0){
+                    buttonStart.draw();
+                }
+            }
+            else{
+                inc=-inc;
+                blink=ofGetElapsedTimef();                
+            }
             
+            TinyUnicode.drawString("Anything is possible in the PING environment.\nSo, be creative and find your own way to play \n           the PING! Augmented Pixel!", ofGetWidth()/2- 180,ofGetHeight()/2 - 20); 
+            break;            
+        default :
+            TinyUnicode.drawString("score " + ofToString(ball.counter), 41, 60);
+            buttonMenu.draw();
+            ball.draw();
+            ofNoFill();
+            //ofRect(20,ofGetHeight()-70,50,30);            
+            break;
     }
-    
-    
 }
 
 //--------------------------------------------------------------
@@ -280,10 +390,10 @@ void testApp::exit(){
     settings.setValue("settings:colorUI", whiteUI);
     settings.setValue("settings:threshhold", ball.threshold);
     settings.setValue("settings:bounceDark", ball.bounceDark);
-    settings.setValue("settings:firstLaunch", 5);    
-    settings.saveFile("settings.xml");
-    
+    settings.setValue("settings:firstLaunch", 5);   
+    settings.saveFile("settings.xml");    
     pong.stop();
+    ping.stop();
     
 }
 
@@ -344,19 +454,17 @@ void testApp::popupDismissed(){
 void testApp::touchDown(ofTouchEventArgs & touch){
     
     if(subMenu==0){
-        buttonMenu.set(TinyUnicode, "back", 45, ofGetHeight()-50);
+        buttonMenu.set(TinyUnicode, "back", 60, ofGetHeight()-50);
         if(buttonInfo.bbox.inside(touch.x, touch.y)){
+            buttonStart.set(TinyUnicode, "next", ofGetWidth()-60, ofGetHeight()-50);
             subMenu = 1; //info
             pong.play();            
-        }
-        
+        }        
         if(buttonOptions.bbox.inside(touch.x, touch.y)){
             subMenu = 6; //sensitivity
             pong.play();            
-        }
-           
+        }           
         if(buttonExternalDisplay.bbox.inside(touch.x, touch.y)){
-
             if(ofxiPhoneExternalDisplay::isExternalScreenConnected()){
                 if(ofxiPhoneExternalDisplay::isMirroring()){
                     ofxiPhoneExternalDisplay::mirrorOff();
@@ -372,57 +480,88 @@ void testApp::touchDown(ofTouchEventArgs & touch){
                 presentMirroringFailedPopup();
                 ping.play();
             }
-        }
-        
-        
+        }                
 //        if(buttonExternalDisplayRect.inside(touch.x, touch.y)){
 //            if(ofxiPhoneExternalDisplay::isExternalScreenConnected()){
 //                presentExternalDisplayPopup();
 //            } else {
 //                presentExternalDisplayNotFoundPopup();
 //            }
-//        }
-        
+//        }        
         if(buttonCredits.bbox.inside(touch.x, touch.y)){
             subMenu = 3; //credits
             pong.play();            
-        }
-        
-    }
-    
-    if(buttonMenu.bbox.inside(touch.x, touch.y)){
-        
+        }        
+    }    
+    if(buttonMenu.bbox.inside(touch.x, touch.y)){        
         if (subMenu==0) {
             subMenu=5;
-            buttonMenu.set(TinyUnicode, "menu", 45, ofGetHeight()-50);
+            settings.setValue("settings:xpos", ball.xpos);
+            settings.setValue("settings:ypos", ball.ypos);
+            settings.setValue("settings:speedx", ball.xspeed);
+            settings.setValue("settings:speedy", ball.yspeed);
+            settings.setValue("settings:colorUI", whiteUI);
+            settings.setValue("settings:threshhold", ball.threshold);
+            settings.setValue("settings:bounceDark", ball.bounceDark);
+            settings.setValue("settings:firstLaunch", 5);   
+            settings.saveFile("settings.xml");
+            buttonMenu.set(TinyUnicode, "menu", 60, ofGetHeight()-50);
             ping.play();            
         } else if (subMenu==5){
             subMenu=0;
-            buttonMenu.set(TinyUnicode, "back", 45, ofGetHeight()-50);
+            buttonMenu.set(TinyUnicode, "back", 60, ofGetHeight()-50);
             pong.play();            
+        } else if (subMenu>7 && subMenu<12) {
+            subMenu--;
+            ping.play(); 
+        } else if (subMenu==7){
+            subMenu=1;
+            ping.play(); 
         } else {
             subMenu=0;
             ping.play();            
         }
-        
-        
-    }
-    
+    }    
     if(buttonStart.bbox.inside(touch.x, touch.y)){
         if (subMenu==4){
-            subMenu=5;            
-            pong.play();            
+            subMenu=7;
+            pong.play();
         }
-    }
-    
+        else if (subMenu==1){
+            subMenu=7;
+            pong.play(); 
+        }
+        else if (subMenu>6 && subMenu<10){
+            subMenu++;
+            pong.play(); 
+        }
+        else if (subMenu==10){
+            buttonStart.set(TinyUnicode, "done", ofGetWidth()-60, ofGetHeight()-50);            
+            subMenu=11;
+            pong.play(); 
+        }
+        else if (subMenu==11){
+            buttonMenu.set(TinyUnicode, "menu", 60, ofGetHeight()-50);
+            settings.setValue("settings:xpos", ball.xpos);
+            settings.setValue("settings:ypos", ball.ypos);
+            settings.setValue("settings:speedx", ball.xspeed);
+            settings.setValue("settings:speedy", ball.yspeed);
+            settings.setValue("settings:colorUI", whiteUI);
+            settings.setValue("settings:threshhold", ball.threshold);
+            settings.setValue("settings:bounceDark", ball.bounceDark);
+            settings.setValue("settings:firstLaunch", 5);   
+            settings.saveFile("settings.xml");
+            pong.play(); 
+            subMenu=5;
+        }
+    }    
     if(subMenu==6){
         if(buttonPlusThresh.bbox.inside(touch.x, touch.y)){
             if(ball.threshold<0.9){
                 ball.threshold+=0.1;;
                 pong.play();
             }
-        }
-        
+        }        
         if(buttonMinusThresh.bbox.inside(touch.x, touch.y)){
             if(ball.threshold>0.2){
                 ball.threshold-=0.1;
@@ -454,13 +593,9 @@ void testApp::touchDown(ofTouchEventArgs & touch){
                 whiteUI= 1;
                 buttonUIcol.st= "white UI";
                 pong.play();
-            }
-            
+            }            
         }
-        
-        
-    }
-    
+    }    
 }
 
 //--------------------------------------------------------------
@@ -482,22 +617,19 @@ void testApp::touchDoubleTap(ofTouchEventArgs & touch){
     
     if(subMenu==5){
         ball.xpos = ofGetWidth()/2;
-        ball.ypos = ofGetHeight()/2;
-        
+        ball.ypos = ofGetHeight()/2;        
         float s = ofRandom(-1,1);
         if (s>=0){
             ball.xspeed = ball.speed;
         } else {
             ball.xspeed = -ball.speed;      
-        }
-        
+        }        
         float a = ofRandom(-1,1);
         if (a>=0){
             ball.yspeed = ball.speed;
         } else {
             ball.yspeed = -ball.speed;      
-        }
-        
+        }        
         ball.counter = 0;
     }
 }
